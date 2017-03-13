@@ -10,12 +10,14 @@ import UIKit
 
 class SignUpViewController: UIViewController {
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var keyboardHeight: NSLayoutConstraint!
+    var scrollViewKeeper : ScrollViewKeeper = ScrollViewKeeper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         stackViewWidth.constant = LoginViewController.widthReference
+        scrollViewKeeper = ScrollViewKeeper(view: self.view, constraint: keyboardHeight)
     }
     
     override func didReceiveMemoryWarning() {
