@@ -223,9 +223,10 @@
                     <navigationItem key="navigationItem" id="0Xc-Ec-nNR"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="emailTextField" destination="MWA-Kp-p7R" id="7AG-dq-0Cr"/>
                         <outlet property="insideViewHeight" destination="CrU-d3-fLu" id="GEI-QX-gin"/>
                         <outlet property="keyboardHeight" destination="ffK-g2-gz8" id="lqD-S4-pZ0"/>
-                        <outlet property="passwordTextField" destination="t1J-dq-cSV" id="lh9-B7-JEq"/>
+                        <outlet property="passwordTextField" destination="t1J-dq-cSV" id="iI9-xn-iNW"/>
                         <outlet property="titleLabel" destination="Nn6-eQ-tyX" id="Xad-wT-hWN"/>
                     </connections>
                 </viewController>
@@ -425,7 +426,7 @@
                                                         <rect key="frame" x="312" y="433" width="55" height="30"/>
                                                         <state key="normal" title="Sign Up"/>
                                                         <connections>
-                                                            <segue destination="49e-Tb-3d3" kind="show" id="pkb-Lo-7pE"/>
+                                                            <segue destination="49e-Tb-3d3" kind="show" identifier="Main" id="pkb-Lo-7pE"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -509,6 +510,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pkb-Lo-7pE"/>
+        <segue reference="1AQ-fp-FPW"/>
     </inferredMetricsTieBreakers>
 </document>

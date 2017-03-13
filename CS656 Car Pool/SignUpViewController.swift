@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignUpViewController: UIViewController {
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
@@ -37,6 +38,10 @@ class SignUpViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if sender as? String == "Good" {
+            return true
+        }
+        
         var valid = true
         if (emailTextField.text?.isEmpty)! {
             emailTextField.layer.borderColor = UIColor.red.cgColor
@@ -64,7 +69,15 @@ class SignUpViewController: UIViewController {
             valid = false
         }
         if valid {
-            return true
+            FIRAuth.auth()?.createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+                if error != nil {
+                    let alert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+                self.performSegue(withIdentifier: "Main", sender: "Good")
+            }
         }
         return false
     }

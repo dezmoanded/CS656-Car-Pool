@@ -7,5 +7,5 @@ target 'CS656 Car Pool' do
 
   # Pods for CS656 Car Pool
 pod 'Firebase/Core'
-
+pod 'Firebase/Auth'
 end

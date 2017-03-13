@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var keyboardHeight: NSLayoutConstraint!
     @IBOutlet weak var insideViewHeight: NSLayoutConstraint!
@@ -33,9 +35,19 @@ class LoginViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if sender as? String == "Good" {
+            return true
+        }
+        
         if identifier == "Main" {
-            if self.passwordTextField.text == "test" {
-                return true
+            FIRAuth.auth()?.signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+                if error != nil {
+                    let alert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+                self.performSegue(withIdentifier: "Main", sender: "Good")
             }
             return false
         }
@@ -43,8 +55,6 @@ class LoginViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if true || self.prefersStatusBarHidden {
-            self.navigationController?.isNavigationBarHidden = true
-        }
+        self.navigationController?.isNavigationBarHidden = true
     }
 }

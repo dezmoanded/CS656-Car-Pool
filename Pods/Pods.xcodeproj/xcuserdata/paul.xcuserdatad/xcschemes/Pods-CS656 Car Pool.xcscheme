@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CB024B3EF82DC40062EA752D8CF894C5"
+               BlueprintIdentifier = "BBD1639262A5D02858F3532BCF7F2F39"
                BuildableName = "Pods_CS656_Car_Pool.framework"
                BlueprintName = "Pods-CS656 Car Pool"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CB024B3EF82DC40062EA752D8CF894C5"
+            BlueprintIdentifier = "BBD1639262A5D02858F3532BCF7F2F39"
             BuildableName = "Pods_CS656_Car_Pool.framework"
             BlueprintName = "Pods-CS656 Car Pool"
             ReferencedContainer = "container:Pods.xcodeproj">
