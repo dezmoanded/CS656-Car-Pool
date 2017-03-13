@@ -434,7 +434,7 @@
                                                     <constraint firstItem="F28-fI-pws" firstAttribute="centerX" secondItem="p8g-TB-eX5" secondAttribute="centerX" id="7ee-bk-woc"/>
                                                     <constraint firstItem="xrT-q4-TFi" firstAttribute="top" secondItem="F28-fI-pws" secondAttribute="bottom" constant="8" id="H1r-LG-hoj"/>
                                                     <constraint firstItem="F28-fI-pws" firstAttribute="top" secondItem="p8g-TB-eX5" secondAttribute="top" constant="8" id="WMR-F8-yoO"/>
-                                                    <constraint firstAttribute="trailing" secondItem="xrT-q4-TFi" secondAttribute="trailing" constant="8" id="sWU-93-5Dc"/>
+                                                    <constraint firstItem="xrT-q4-TFi" firstAttribute="trailing" secondItem="F28-fI-pws" secondAttribute="trailing" id="dug-hZ-13v"/>
                                                 </constraints>
                                             </view>
                                         </subviews>

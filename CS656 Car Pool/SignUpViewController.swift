@@ -37,25 +37,30 @@ class SignUpViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        let valid = true
-        if (emailTextField.text?.isEmpty) {
+        var valid = true
+        if (emailTextField.text?.isEmpty)! {
             emailTextField.layer.borderColor = UIColor.red.cgColor
+            emailTextField.layer.borderWidth = 1
             valid = false
         }
-        if passwordTextField.text?.isEmpty {
+        if (passwordTextField.text?.isEmpty)! {
             passwordTextField.layer.borderColor = UIColor.red.cgColor
+            passwordTextField.layer.borderWidth = 1
             valid = false
         }
         if passwordConfirmTextField.text != passwordTextField.text {
             passwordConfirmTextField.layer.borderColor = UIColor.red.cgColor
+            passwordConfirmTextField.layer.borderWidth = 1
             valid = false
         }
-        if firstNameTextField.text?.isEmpty {
+        if (firstNameTextField.text?.isEmpty)! {
             firstNameTextField.layer.borderColor = UIColor.red.cgColor
+            firstNameTextField.layer.borderWidth = 1
             valid = false
         }
-        if lastNameTextField.text?.isEmpty {
+        if (lastNameTextField.text?.isEmpty)! {
             lastNameTextField.layer.borderColor = UIColor.red.cgColor
+            lastNameTextField.layer.borderWidth = 1
             valid = false
         }
         if valid {
