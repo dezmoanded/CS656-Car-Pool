@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>585910502281-9igicivudmgrdspiqhi2gos2e5i206fk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.585910502281-9igicivudmgrdspiqhi2gos2e5i206fk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAqf9BYIrF31Pa9r75D9s7sGMfEItcdN2c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>585910502281</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>personal.CS656-Car-Pool</string>
+	<key>PROJECT_ID</key>
+	<string>cs656-car-pool</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cs656-car-pool.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:585910502281:ios:80cc7adada455b55</string>
+	<key>DATABASE_URL</key>
+	<string>https://cs656-car-pool.firebaseio.com</string>
+</dict>
+</plist>
