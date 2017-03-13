@@ -231,7 +231,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YoU-4i-aEP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-856.79999999999995" y="-0.44977511244377816"/>
+            <point key="canvasLocation" x="-858" y="-321"/>
         </scene>
         <!--Sign Up-->
         <scene sceneID="yXR-RR-iEt">
@@ -246,13 +246,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jzp-FB-t4E">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV7-Ja-iGJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p8g-TB-eX5">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="F28-fI-pws">
                                                         <rect key="frame" x="9" y="8" width="357" height="417"/>
@@ -421,11 +421,20 @@
                                                             <constraint firstItem="Ckh-li-SWT" firstAttribute="width" secondItem="F28-fI-pws" secondAttribute="width" id="yek-4R-65c"/>
                                                         </constraints>
                                                     </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xrT-q4-TFi">
+                                                        <rect key="frame" x="312" y="433" width="55" height="30"/>
+                                                        <state key="normal" title="Sign Up"/>
+                                                        <connections>
+                                                            <segue destination="49e-Tb-3d3" kind="show" id="pkb-Lo-7pE"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="F28-fI-pws" firstAttribute="centerX" secondItem="p8g-TB-eX5" secondAttribute="centerX" id="7ee-bk-woc"/>
+                                                    <constraint firstItem="xrT-q4-TFi" firstAttribute="top" secondItem="F28-fI-pws" secondAttribute="bottom" constant="8" id="H1r-LG-hoj"/>
                                                     <constraint firstItem="F28-fI-pws" firstAttribute="top" secondItem="p8g-TB-eX5" secondAttribute="top" constant="8" id="WMR-F8-yoO"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xrT-q4-TFi" secondAttribute="trailing" constant="8" id="sWU-93-5Dc"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -456,20 +465,29 @@
                             <constraint firstItem="Jzp-FB-t4E" firstAttribute="leading" secondItem="2UA-Wa-upM" secondAttribute="leading" id="kd8-jQ-aZF"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="emailTextField" destination="LEe-sm-beJ" id="ULS-HO-IPQ"/>
+                        <outlet property="firstNameTextField" destination="9Yg-Ai-VIs" id="qjk-lo-ie7"/>
                         <outlet property="keyboardHeight" destination="EQY-1c-iR5" id="bHg-g0-QT0"/>
+                        <outlet property="lastNameTextField" destination="auh-cG-iaw" id="4gh-hC-i2n"/>
+                        <outlet property="passwordConfirmTextField" destination="sUQ-cY-sN5" id="y8V-hJ-hu8"/>
+                        <outlet property="passwordTextField" destination="cxq-ga-H1I" id="jeA-CV-Vqf"/>
+                        <outlet property="phoneNumberTextField" destination="2cg-B0-rXB" id="sGv-ZT-A6F"/>
                         <outlet property="stackViewWidth" destination="JmK-Wc-zmw" id="6vV-mT-lhJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9n-4P-Uqn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-858.39999999999998" y="770.46476761619192"/>
+            <point key="canvasLocation" x="-858" y="359"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                    <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -490,4 +508,7 @@
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="pkb-Lo-7pE"/>
+    </inferredMetricsTieBreakers>
 </document>

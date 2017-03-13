@@ -11,6 +11,13 @@ import UIKit
 class SignUpViewController: UIViewController {
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
     @IBOutlet weak var keyboardHeight: NSLayoutConstraint!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordConfirmTextField: UITextField!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var phoneNumberTextField: UITextField!
+    
     var scrollViewKeeper : ScrollViewKeeper = ScrollViewKeeper()
     
     override func viewDidLoad() {
@@ -29,4 +36,31 @@ class SignUpViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        let valid = true
+        if (emailTextField.text?.isEmpty) {
+            emailTextField.layer.borderColor = UIColor.red.cgColor
+            valid = false
+        }
+        if passwordTextField.text?.isEmpty {
+            passwordTextField.layer.borderColor = UIColor.red.cgColor
+            valid = false
+        }
+        if passwordConfirmTextField.text != passwordTextField.text {
+            passwordConfirmTextField.layer.borderColor = UIColor.red.cgColor
+            valid = false
+        }
+        if firstNameTextField.text?.isEmpty {
+            firstNameTextField.layer.borderColor = UIColor.red.cgColor
+            valid = false
+        }
+        if lastNameTextField.text?.isEmpty {
+            lastNameTextField.layer.borderColor = UIColor.red.cgColor
+            valid = false
+        }
+        if valid {
+            return true
+        }
+        return false
+    }
 }
