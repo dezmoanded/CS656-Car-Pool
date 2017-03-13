@@ -38,10 +38,6 @@ class SignUpViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if sender as? String == "Good" {
-            return true
-        }
-        
         var valid = true
         if (emailTextField.text?.isEmpty)! {
             emailTextField.layer.borderColor = UIColor.red.cgColor
@@ -76,7 +72,7 @@ class SignUpViewController: UIViewController {
                     self.present(alert, animated: true, completion: nil)
                     return
                 }
-                self.performSegue(withIdentifier: "Main", sender: "Good")
+                self.performSegue(withIdentifier: "Main", sender: nil)
             }
         }
         return false

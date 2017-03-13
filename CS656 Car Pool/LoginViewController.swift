@@ -35,10 +35,6 @@ class LoginViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if sender as? String == "Good" {
-            return true
-        }
-        
         if identifier == "Main" {
             FIRAuth.auth()?.signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
                 if error != nil {
@@ -47,7 +43,7 @@ class LoginViewController: UIViewController {
                     self.present(alert, animated: true, completion: nil)
                     return
                 }
-                self.performSegue(withIdentifier: "Main", sender: "Good")
+                self.performSegue(withIdentifier: "Main", sender: nil)
             }
             return false
         }
