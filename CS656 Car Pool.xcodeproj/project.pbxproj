@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D564F1E26B89922307303098 /* Pods_CS656_Car_Pool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB8CB08CAD0E267B601946 /* Pods_CS656_Car_Pool.framework */; };
+		DA2D5A3F1E8781880056828F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2D5A3E1E8781880056828F /* TabBarController.swift */; };
 		DA7DAEC81E7602E70014F774 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA7DAEC71E7602E70014F774 /* GoogleService-Info.plist */; };
-		DA7DAECA1E760D660014F774 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7DAEC91E760D660014F774 /* SignUpViewController.swift */; };
+		DA7DAECA1E760D660014F774 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7DAEC91E760D660014F774 /* ProfileViewController.swift */; };
 		DA7DAECD1E764F9D0014F774 /* ScrollViewKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7DAECC1E764F9D0014F774 /* ScrollViewKeeper.swift */; };
 		DAB45CB91E75D87C00DEA1E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB45CB81E75D87C00DEA1E6 /* AppDelegate.swift */; };
 		DAB45CBB1E75D87C00DEA1E6 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB45CBA1E75D87C00DEA1E6 /* FirstViewController.swift */; };
@@ -24,8 +25,9 @@
 		04171010884B56659FEC5293 /* Pods-CS656 Car Pool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CS656 Car Pool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CS656 Car Pool/Pods-CS656 Car Pool.debug.xcconfig"; sourceTree = "<group>"; };
 		4ADB8CB08CAD0E267B601946 /* Pods_CS656_Car_Pool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CS656_Car_Pool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78BD69E0F1B96C6D575A35F1 /* Pods-CS656 Car Pool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CS656 Car Pool.release.xcconfig"; path = "Pods/Target Support Files/Pods-CS656 Car Pool/Pods-CS656 Car Pool.release.xcconfig"; sourceTree = "<group>"; };
+		DA2D5A3E1E8781880056828F /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DA7DAEC71E7602E70014F774 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		DA7DAEC91E760D660014F774 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		DA7DAEC91E760D660014F774 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DA7DAECC1E764F9D0014F774 /* ScrollViewKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewKeeper.swift; sourceTree = "<group>"; };
 		DAB45CB51E75D87C00DEA1E6 /* CS656 Car Pool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CS656 Car Pool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB45CB81E75D87C00DEA1E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,12 +103,13 @@
 				DAB45CBA1E75D87C00DEA1E6 /* FirstViewController.swift */,
 				DAB45CBC1E75D87C00DEA1E6 /* SecondViewController.swift */,
 				DAB45CD01E75E27E00DEA1E6 /* LoginViewController.swift */,
-				DA7DAEC91E760D660014F774 /* SignUpViewController.swift */,
+				DA7DAEC91E760D660014F774 /* ProfileViewController.swift */,
 				DAB45CBE1E75D87C00DEA1E6 /* Main.storyboard */,
 				DAB45CC11E75D87C00DEA1E6 /* Assets.xcassets */,
 				DAB45CC31E75D87C00DEA1E6 /* LaunchScreen.storyboard */,
 				DAB45CC61E75D87C00DEA1E6 /* Info.plist */,
 				DA7DAEC71E7602E70014F774 /* GoogleService-Info.plist */,
+				DA2D5A3E1E8781880056828F /* TabBarController.swift */,
 			);
 			path = "CS656 Car Pool";
 			sourceTree = "<group>";
@@ -239,8 +242,9 @@
 				DA7DAECD1E764F9D0014F774 /* ScrollViewKeeper.swift in Sources */,
 				DAB45CBD1E75D87C00DEA1E6 /* SecondViewController.swift in Sources */,
 				DAB45CB91E75D87C00DEA1E6 /* AppDelegate.swift in Sources */,
+				DA2D5A3F1E8781880056828F /* TabBarController.swift in Sources */,
 				DAB45CBB1E75D87C00DEA1E6 /* FirstViewController.swift in Sources */,
-				DA7DAECA1E760D660014F774 /* SignUpViewController.swift in Sources */,
+				DA7DAECA1E760D660014F774 /* ProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

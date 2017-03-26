@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
@@ -35,7 +36,7 @@ class LoginViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "Main" {
+        if identifier == "Login" {
             FIRAuth.auth()?.signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
                 if error != nil {
                     let alert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
@@ -43,7 +44,8 @@ class LoginViewController: UIViewController {
                     self.present(alert, animated: true, completion: nil)
                     return
                 }
-                self.performSegue(withIdentifier: "Main", sender: nil)
+                ProfileViewController.setUser(user: user)
+                self.performSegue(withIdentifier: "Login", sender: nil)
             }
             return false
         }
