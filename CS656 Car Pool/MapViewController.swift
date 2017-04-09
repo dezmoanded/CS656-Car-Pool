@@ -10,15 +10,28 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 import GooglePlacePicker
+import FirebaseDatabase
 
 class MapViewController: UIViewController {
 
-   var placesClient: GMSPlacesClient!
+    var placesClient: GMSPlacesClient!
     
     @IBOutlet var NameLabel: UILabel!
     @IBOutlet var AddressLabel: UILabel!
     
-    // Add a UIButton in Interface Builder, and connect the action to this function.
+    static var ref: FIRDatabaseReference!
+    
+    static func setCurrentTrip(currentTrip: String){
+        MapViewController.ref = FIRDatabase.database().reference().child("trips").child(currentTrip)
+    }
+    
+    override func viewDidLoad() {
+        if MapViewController.ref == nil {
+            MapViewController.ref = FIRDatabase.database().reference().child("trips")
+            MapViewController.ref = MapViewController.ref.childByAutoId()
+            ProfileViewController.ref.child("currentTrip").setValue(MapViewController.ref.key)
+        }
+    }
    
     @IBAction func CurrentLocation(_ sender: UIButton) {
         let center = CLLocationCoordinate2D(latitude: 37.788204, longitude: -122.411937)
@@ -38,6 +51,11 @@ class MapViewController: UIViewController {
                 self.NameLabel.text = place.name
                 self.AddressLabel.text = place.formattedAddress?.components(separatedBy: ", ")
                     .joined(separator: "\n")
+                let pickup = MapViewController.ref.child("pickup")
+                pickup.child("name").setValue(place.name)
+                pickup.child("coordinate/latitude").setValue(place.coordinate.latitude)
+                pickup.child("coordinate/longitude").setValue(place.coordinate.longitude)
+                pickup.child("formattedAddress").setValue(place.formattedAddress)
             } else {
                 self.NameLabel.text = "No place selected"
                 self.AddressLabel.text = ""

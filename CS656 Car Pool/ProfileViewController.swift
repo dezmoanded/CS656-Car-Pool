@@ -27,7 +27,6 @@ class ProfileViewController: UIViewController {
     var scrollViewKeeper : ScrollViewKeeper = ScrollViewKeeper()
     static var ref: FIRDatabaseReference!
     static var user: FIRUser!
-    var observeRef: FIRDatabaseReference!
     
     static func setUser (user: FIRUser!) {
         ProfileViewController.user = user
