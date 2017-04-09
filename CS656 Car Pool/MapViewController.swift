@@ -21,16 +21,33 @@ class MapViewController: UIViewController {
     
     static var ref: FIRDatabaseReference!
     
-    static func setCurrentTrip(currentTrip: String){
-        MapViewController.ref = FIRDatabase.database().reference().child("trips").child(currentTrip)
+    override func viewDidLoad() {
+        resetCurrentTrip()
     }
     
-    override func viewDidLoad() {
-        if MapViewController.ref == nil {
-            MapViewController.ref = FIRDatabase.database().reference().child("trips")
-            MapViewController.ref = MapViewController.ref.childByAutoId()
-            ProfileViewController.ref.child("currentTrip").setValue(MapViewController.ref.key)
-        }
+    func resetCurrentTrip() {
+        MapViewController.ref = ProfileViewController.ref.child("currentTrip")
+        MapViewController.ref.child("userID").setValue(ProfileViewController.ref.key)
+        MapViewController.ref.observe(FIRDataEventType.value, with: { (snapshot) in
+            let pickup = snapshot.childSnapshot(forPath: "pickup")
+            if let name = pickup.childSnapshot(forPath: "name").value {
+                self.NameLabel.text = name as? String
+            }
+            if let formattedAddress = pickup.childSnapshot(forPath: "formattedAddress").value {
+                self.AddressLabel.text = (formattedAddress as? String)?.components(separatedBy: ", ")
+                    .joined(separator: "\n")
+            }
+        })
+    }
+
+    @IBAction func clickSaveTrip(_ sender: Any) {
+            // Move trip to trips list then delete from user
+        let tripRef = FIRDatabase.database().reference().child("trips").childByAutoId()
+        MapViewController.ref.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+            tripRef.setValue(snapshot.value)
+            MapViewController.ref.removeValue()
+            self.resetCurrentTrip()
+        })
     }
    
     @IBAction func CurrentLocation(_ sender: UIButton) {
@@ -48,10 +65,8 @@ class MapViewController: UIViewController {
             }
             
             if let place = place {
-                self.NameLabel.text = place.name
-                self.AddressLabel.text = place.formattedAddress?.components(separatedBy: ", ")
-                    .joined(separator: "\n")
                 let pickup = MapViewController.ref.child("pickup")
+                pickup.child("placeID").setValue(place.placeID)
                 pickup.child("name").setValue(place.name)
                 pickup.child("coordinate/latitude").setValue(place.coordinate.latitude)
                 pickup.child("coordinate/longitude").setValue(place.coordinate.longitude)
