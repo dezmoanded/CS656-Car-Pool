@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CS656 Car Pool/ProfileViewController.swift"
-            timestampString = "513458816.402062"
+            timestampString = "513573782.503783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "shouldPerformSegue(withIdentifier:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CS656 Car Pool/MapViewController.swift"
-            timestampString = "513458816.402062"
+            timestampString = "513575981.181798"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
             landmarkName = "MapViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -202,43 +202,91 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CS656 Car Pool/MapViewController.swift"
-            timestampString = "513460279.460116"
+            timestampString = "513575981.181798"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "resetCurrentTrip()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CS656 Car Pool/MapViewController.swift"
+            timestampString = "513575981.181798"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CS656 Car Pool/ProfileViewController.swift"
+            timestampString = "513573782.503783"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "updateUser()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CS656 Car Pool/ProfileViewController.swift"
+            timestampString = "513573782.503783"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "CS656_Car_Pool.MapViewController.resetCurrentTrip () -&gt; ()"
+                  symbolName = "CS656_Car_Pool.ProfileViewController.(viewDidLoad () -&gt; ()).(closure #1)"
                   moduleName = "CS656 Car Pool"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/paul/Desktop/CS%20656/CS656-Car-Pool/CS656%20Car%20Pool/MapViewController.swift"
-                  timestampString = "513459337.754598"
+                  urlString = "file:///Users/paul/Desktop/CS%20656/CS656-Car-Pool/CS656%20Car%20Pool/ProfileViewController.swift"
+                  timestampString = "513573930.285119"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "748">
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "27">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "CS656_Car_Pool.MapViewController.(resetCurrentTrip () -&gt; ()).(closure #1)"
+                  symbolName = "CS656_Car_Pool.ProfileViewController.(viewDidLoad () -&gt; ()).(closure #1).(implicit closure #1)"
                   moduleName = "CS656 Car Pool"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/paul/Desktop/CS%20656/CS656-Car-Pool/CS656%20Car%20Pool/MapViewController.swift"
-                  timestampString = "513459337.757008"
+                  urlString = "file:///Users/paul/Desktop/CS%20656/CS656-Car-Pool/CS656%20Car%20Pool/ProfileViewController.swift"
+                  timestampString = "513573930.288263"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "23">
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -249,13 +297,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CS656 Car Pool/MapViewController.swift"
-            timestampString = "513460279.460116"
+            filePath = "CS656 Car Pool/ProfileViewController.swift"
+            timestampString = "513573782.503783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "resetCurrentTrip()"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

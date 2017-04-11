@@ -16,9 +16,10 @@ class MapViewController: UIViewController {
 
     var placesClient: GMSPlacesClient!
     
-    @IBOutlet var NameLabel: UILabel!
-    @IBOutlet var AddressLabel: UILabel!
-    
+    @IBOutlet weak var pickupButton: UIButton!
+    @IBOutlet weak var dropoffButton: UIButton!
+    @IBOutlet weak var pickupTimeButton: UIButton!
+    @IBOutlet weak var dropoffTimeButton: UIButton!
     static var ref: FIRDatabaseReference!
     
     override func viewDidLoad() {
@@ -30,32 +31,43 @@ class MapViewController: UIViewController {
         MapViewController.ref.child("userID").setValue(ProfileViewController.ref.key)
         MapViewController.ref.observe(FIRDataEventType.value, with: { (snapshot) in
             let pickup = snapshot.childSnapshot(forPath: "pickup")
-            if let name = pickup.childSnapshot(forPath: "name").value {
-                self.NameLabel.text = name as? String
-            }
             if let formattedAddress = pickup.childSnapshot(forPath: "formattedAddress").value {
-                self.AddressLabel.text = (formattedAddress as? String)?.components(separatedBy: ", ")
-                    .joined(separator: "\n")
+                self.setButtonValue(button: self.pickupButton, value: formattedAddress)
+            }
+            
+            let dropoff = snapshot.childSnapshot(forPath: "dropoff")
+            if let formattedAddress = dropoff.childSnapshot(forPath: "formattedAddress").value {
+                self.setButtonValue(button: self.dropoffButton, value: formattedAddress)
+            }
+            
+            if let pickupTime = snapshot.childSnapshot(forPath: "pickupTime").value {
+                self.setButtonValue(button: self.pickupTimeButton, value: pickupTime)
+            }
+            
+            if let dropoffTime = snapshot.childSnapshot(forPath: "dropoffTime").value {
+                self.setButtonValue(button: self.dropoffTimeButton, value: dropoffTime)
             }
         })
     }
-
-    @IBAction func clickSaveTrip(_ sender: Any) {
-            // Move trip to trips list then delete from user
-        let tripRef = FIRDatabase.database().reference().child("trips").childByAutoId()
-        MapViewController.ref.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
-            tripRef.setValue(snapshot.value)
-            MapViewController.ref.removeValue()
-            self.resetCurrentTrip()
-        })
+    
+    func setButtonValue(button: UIButton, value: Any){
+        if let valueString = value as? String {
+            if valueString.characters.count > 0 {
+                button.setTitle(valueString, for: UIControlState.normal)
+            }
+        }
     }
    
-    @IBAction func CurrentLocation(_ sender: UIButton) {
-        let center = CLLocationCoordinate2D(latitude: 37.788204, longitude: -122.411937)
-        let northEast = CLLocationCoordinate2D(latitude: center.latitude + 0.001, longitude: center.longitude + 0.001)
-        let southWest = CLLocationCoordinate2D(latitude: center.latitude - 0.001, longitude: center.longitude - 0.001)
-        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
-        let config = GMSPlacePickerConfig(viewport: viewport)
+    @IBAction func clickPickup(_ sender: Any) {
+        pickLocation(name: "pickup")
+    }
+    
+    @IBAction func clickDropoff(_ sender: Any) {
+        pickLocation(name: "dropoff")
+    }
+    
+    func pickLocation(name: String!){
+        let config = GMSPlacePickerConfig(viewport: nil)
         let placePicker = GMSPlacePicker(config: config)
         
         placePicker.pickPlace(callback: {(place, error) -> Void in
@@ -65,16 +77,34 @@ class MapViewController: UIViewController {
             }
             
             if let place = place {
-                let pickup = MapViewController.ref.child("pickup")
-                pickup.child("placeID").setValue(place.placeID)
-                pickup.child("name").setValue(place.name)
-                pickup.child("coordinate/latitude").setValue(place.coordinate.latitude)
-                pickup.child("coordinate/longitude").setValue(place.coordinate.longitude)
-                pickup.child("formattedAddress").setValue(place.formattedAddress)
-            } else {
-                self.NameLabel.text = "No place selected"
-                self.AddressLabel.text = ""
+                let address = MapViewController.ref.child(name)
+                address.child("placeID").setValue(place.placeID)
+                address.child("name").setValue(place.name)
+                address.child("coordinate/latitude").setValue(place.coordinate.latitude)
+                address.child("coordinate/longitude").setValue(place.coordinate.longitude)
+                address.child("formattedAddress").setValue(place.formattedAddress)
             }
         })
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        switch identifier {
+        case "pickupTime":
+            if let time = self.pickupTimeButton.titleLabel?.text {
+                TimePickerViewController.set(name: "pickupTime", time: time)
+            }
+            break
+            
+        case "dropoffTime":
+            if let time = self.dropoffTimeButton.titleLabel?.text {
+                TimePickerViewController.set(name: "dropoffTime", time: time)
+            }
+            break
+            
+        default:
+            break
+        }
+        
+        return true
     }
 }

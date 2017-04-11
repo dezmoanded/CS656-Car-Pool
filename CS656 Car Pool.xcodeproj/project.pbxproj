@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D564F1E26B89922307303098 /* Pods_CS656_Car_Pool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB8CB08CAD0E267B601946 /* Pods_CS656_Car_Pool.framework */; };
 		DA2D5A3F1E8781880056828F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2D5A3E1E8781880056828F /* TabBarController.swift */; };
+		DA47FA101E9C939D006361FD /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA47FA0F1E9C939D006361FD /* TimePickerViewController.swift */; };
 		DA7DAEC81E7602E70014F774 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA7DAEC71E7602E70014F774 /* GoogleService-Info.plist */; };
 		DA7DAECA1E760D660014F774 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7DAEC91E760D660014F774 /* ProfileViewController.swift */; };
 		DA7DAECD1E764F9D0014F774 /* ScrollViewKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7DAECC1E764F9D0014F774 /* ScrollViewKeeper.swift */; };
@@ -25,6 +26,7 @@
 		4ADB8CB08CAD0E267B601946 /* Pods_CS656_Car_Pool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CS656_Car_Pool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78BD69E0F1B96C6D575A35F1 /* Pods-CS656 Car Pool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CS656 Car Pool.release.xcconfig"; path = "Pods/Target Support Files/Pods-CS656 Car Pool/Pods-CS656 Car Pool.release.xcconfig"; sourceTree = "<group>"; };
 		DA2D5A3E1E8781880056828F /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		DA47FA0F1E9C939D006361FD /* TimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
 		DA7DAEC71E7602E70014F774 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DA7DAEC91E760D660014F774 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DA7DAECC1E764F9D0014F774 /* ScrollViewKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewKeeper.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				DA7DAEC71E7602E70014F774 /* GoogleService-Info.plist */,
 				DA2D5A3E1E8781880056828F /* TabBarController.swift */,
 				DAFF4FEF1E8B5497005F5A63 /* MapViewController.swift */,
+				DA47FA0F1E9C939D006361FD /* TimePickerViewController.swift */,
 			);
 			path = "CS656 Car Pool";
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB45CD11E75E27E00DEA1E6 /* LoginViewController.swift in Sources */,
+				DA47FA101E9C939D006361FD /* TimePickerViewController.swift in Sources */,
 				DA7DAECD1E764F9D0014F774 /* ScrollViewKeeper.swift in Sources */,
 				DAB45CB91E75D87C00DEA1E6 /* AppDelegate.swift in Sources */,
 				DA2D5A3F1E8781880056828F /* TabBarController.swift in Sources */,

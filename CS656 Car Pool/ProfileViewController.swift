@@ -58,11 +58,17 @@ class ProfileViewController: UIViewController {
                 self.emailTextField.text = ProfileViewController.user.email
             }
             
-            ProfileViewController.ref.observe(FIRDataEventType.value, with: { (snapshot) in
+            ProfileViewController.ref.child("profile").observe(FIRDataEventType.value, with: { (snapshot) in
                 let postDict = snapshot.value as? [String : String] ?? [:]
-                self.firstNameTextField.text = postDict["firstName"]
-                self.lastNameTextField.text = postDict["lastName"]
-                self.phoneNumberTextField.text = postDict["phoneNumber"]
+                if let firstName = postDict["firstName"] {
+                    self.firstNameTextField.text = firstName
+                }
+                if let lastName = postDict["lastName"] {
+                    self.lastNameTextField.text = lastName
+                }
+                if let phoneNumber = postDict["phoneNumber"] {
+                    self.phoneNumberTextField.text = phoneNumber
+                }
             })
         }
     }
@@ -73,9 +79,9 @@ class ProfileViewController: UIViewController {
     
     func updateUser() {
         if (ProfileViewController.ref != nil) {
-            ProfileViewController.ref.child("firstName").setValue(self.firstNameTextField.text)
-            ProfileViewController.ref.child("lastName").setValue(self.lastNameTextField.text)
-            ProfileViewController.ref.child("phoneNumber").setValue(self.phoneNumberTextField.text)
+            ProfileViewController.ref.child("profile/firstName").setValue(self.firstNameTextField.text)
+            ProfileViewController.ref.child("profile/lastName").setValue(self.lastNameTextField.text)
+            ProfileViewController.ref.child("profile/phoneNumber").setValue(self.phoneNumberTextField.text)
         }
     }
     
