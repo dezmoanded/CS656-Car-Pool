@@ -85,6 +85,10 @@ class MapViewController: UIViewController {
         })
     }
     
+    func findBestMatch() {
+        
+    }
+    
     func setButtonBackground(name: String, button: UIButton, snapshot: FIRDataSnapshot){
         if let doDay = snapshot.childSnapshot(forPath: name).value as? Bool {
             if doDay {
@@ -180,7 +184,12 @@ class MapViewController: UIViewController {
     @IBAction func clickSaturday(_ sender: UIButton) {
         MapViewController.ref.child("doSaturday").setValue(sender.currentBackgroundImage != dayOnImage)
     }
+    
     @IBAction func didChangeCanDrive(_ sender: UISwitch) {
         MapViewController.ref.child("canDrive").setValue(sender.isOn)
+    }
+    
+    @IBAction func clickFindCarpool(_ sender: Any) {
+        
     }
 }

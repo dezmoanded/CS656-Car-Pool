@@ -294,10 +294,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="G0m-Tz-JbX">
-                                <rect key="frame" x="16" y="-24.5" width="343" height="716"/>
+                                <rect key="frame" x="16" y="49" width="343" height="569"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KsY-W0-FX2">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="129"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="129.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3b4-Zs-mmL">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
@@ -306,7 +306,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-Jl-6AG">
-                                                <rect key="frame" x="0.0" y="29" width="343" height="100"/>
+                                                <rect key="frame" x="0.0" y="29" width="343" height="100.5"/>
                                                 <state key="normal" title="Select Pickup Location"/>
                                                 <connections>
                                                     <action selector="clickPickup:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="MGX-kE-m9R"/>
@@ -325,7 +325,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MNj-7a-EwE">
-                                        <rect key="frame" x="0.0" y="141" width="343" height="128"/>
+                                        <rect key="frame" x="0.0" y="141.5" width="343" height="69.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dropoff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y4J-XD-3QL">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
@@ -334,7 +334,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="itj-kl-i4e">
-                                                <rect key="frame" x="0.0" y="28.5" width="343" height="99.5"/>
+                                                <rect key="frame" x="0.0" y="28.5" width="343" height="41"/>
                                                 <state key="normal" title="Select Dropoff Location"/>
                                                 <connections>
                                                     <action selector="clickDropoff:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Ssb-eT-xUr"/>
@@ -353,7 +353,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCk-5n-Ph7">
-                                        <rect key="frame" x="0.0" y="281" width="343" height="128"/>
+                                        <rect key="frame" x="0.0" y="223" width="343" height="58"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WHEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXP-bh-eG1">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
@@ -362,7 +362,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oon-ZP-zpo">
-                                                <rect key="frame" x="0.0" y="28" width="343" height="100"/>
+                                                <rect key="frame" x="0.0" y="28" width="343" height="30"/>
                                                 <state key="normal" title="Select Pickup Time"/>
                                                 <connections>
                                                     <segue destination="44g-oM-UWi" kind="presentation" identifier="pickupTime" id="k3u-I0-HV2"/>
@@ -381,7 +381,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qfb-0j-8hP">
-                                        <rect key="frame" x="0.0" y="421" width="343" height="200"/>
+                                        <rect key="frame" x="0.0" y="293" width="343" height="200"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="50" placeholderIntrinsicHeight="200" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="w1I-fw-ZIV">
                                                 <rect key="frame" x="0.0" y="0.0" width="93.5" height="200"/>
@@ -434,7 +434,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aby-Wb-G5x">
-                                        <rect key="frame" x="0.0" y="633" width="343" height="40"/>
+                                        <rect key="frame" x="0.0" y="505" width="343" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="un8-d8-dG1">
                                                 <rect key="frame" x="0.0" y="0.0" width="49" height="40"/>
@@ -530,30 +530,40 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YNM-GB-gqg">
-                                        <rect key="frame" x="0.0" y="685" width="343" height="31"/>
+                                        <rect key="frame" x="0.0" y="557" width="343" height="0.0"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I Can Drive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNk-NU-5uf">
-                                                <rect key="frame" x="0.0" y="0.0" width="294" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="294" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Utw-fa-w1e">
-                                                <rect key="frame" x="294" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="294" y="0.0" width="51" height="0.0"/>
                                                 <connections>
                                                     <action selector="didChangeCanDrive:" destination="8rJ-Kc-sve" eventType="valueChanged" id="ZM7-b2-mI5"/>
                                                 </connections>
                                             </switch>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2a4-qm-OAI">
+                                        <rect key="frame" x="0.0" y="569" width="343" height="0.0"/>
+                                        <state key="normal" title="Find a Carpool"/>
+                                        <connections>
+                                            <action selector="clickFindCarpool:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="olL-8L-2Bb"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="G0m-Tz-JbX" secondAttribute="trailing" id="BjR-PB-2Kd"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="G0m-Tz-JbX" secondAttribute="bottom" id="XW3-c1-48N"/>
+                            <constraint firstItem="G0m-Tz-JbX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="ZTg-1K-bmT"/>
                             <constraint firstItem="G0m-Tz-JbX" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="jZW-0S-ndx"/>
                             <constraint firstItem="G0m-Tz-JbX" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="uwL-L4-1qb"/>
+                            <constraint firstItem="G0m-Tz-JbX" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="v14-Yd-LGe"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="My Trip" image="second" id="cPa-gy-q4n"/>
@@ -577,6 +587,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="917.60000000000002" y="-3.1484257871064472"/>
+        </scene>
+        <!--Best Match-->
+        <scene sceneID="Brd-3O-tvz">
+            <objects>
+                <viewController id="NKv-aM-ATl" customClass="BestMatchViewController" customModule="CS656_Car_Pool" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XO3-8X-IWA"/>
+                        <viewControllerLayoutGuide type="bottom" id="FRd-zy-1fs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cTb-7E-hsB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Best Match" id="rA4-wF-uNr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZVm-LE-keF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="821" y="684"/>
         </scene>
         <!--Time Picker View Controller-->
         <scene sceneID="qQr-AN-9kk">
@@ -798,6 +827,7 @@
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="NKv-aM-ATl" kind="relationship" relationship="viewControllers" id="B9g-pQ-Qpa"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
