@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -293,19 +294,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="G0m-Tz-JbX">
-                                <rect key="frame" x="19" y="59.5" width="337" height="548"/>
+                                <rect key="frame" x="16" y="-24.5" width="343" height="716"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KsY-W0-FX2">
-                                        <rect key="frame" x="0.0" y="0.0" width="337" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="129"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3b4-Zs-mmL">
-                                                <rect key="frame" x="0.0" y="0.0" width="337" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-Jl-6AG">
-                                                <rect key="frame" x="0.0" y="28.5" width="337" height="99.5"/>
+                                                <rect key="frame" x="0.0" y="29" width="343" height="100"/>
                                                 <state key="normal" title="Select Pickup Location"/>
                                                 <connections>
                                                     <action selector="clickPickup:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="MGX-kE-m9R"/>
@@ -323,45 +324,17 @@
                                             <constraint firstItem="3b4-Zs-mmL" firstAttribute="leading" secondItem="KsY-W0-FX2" secondAttribute="leading" id="wwE-fP-Cye"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCk-5n-Ph7">
-                                        <rect key="frame" x="0.0" y="140" width="337" height="128"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WHEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXP-bh-eG1">
-                                                <rect key="frame" x="32" y="0.0" width="305" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oon-ZP-zpo">
-                                                <rect key="frame" x="32" y="28" width="305" height="100"/>
-                                                <state key="normal" title="Select Pickup Time"/>
-                                                <connections>
-                                                    <segue destination="44g-oM-UWi" kind="presentation" identifier="pickupTime" id="k3u-I0-HV2"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="EXP-bh-eG1" secondAttribute="trailing" id="0Lf-MF-Rly"/>
-                                            <constraint firstAttribute="trailing" secondItem="oon-ZP-zpo" secondAttribute="trailing" id="2Yn-MD-7BX"/>
-                                            <constraint firstItem="EXP-bh-eG1" firstAttribute="top" secondItem="ZCk-5n-Ph7" secondAttribute="top" id="7KC-4f-D6F"/>
-                                            <constraint firstItem="oon-ZP-zpo" firstAttribute="top" secondItem="EXP-bh-eG1" secondAttribute="bottom" constant="8" id="PMK-ZQ-d6v"/>
-                                            <constraint firstItem="EXP-bh-eG1" firstAttribute="leading" secondItem="ZCk-5n-Ph7" secondAttribute="leading" constant="32" id="cAJ-cF-GWp"/>
-                                            <constraint firstAttribute="bottom" secondItem="oon-ZP-zpo" secondAttribute="bottom" id="jOR-bf-xod"/>
-                                            <constraint firstItem="oon-ZP-zpo" firstAttribute="leading" secondItem="ZCk-5n-Ph7" secondAttribute="leading" constant="32" id="vKl-C1-oKf"/>
-                                        </constraints>
-                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MNj-7a-EwE">
-                                        <rect key="frame" x="0.0" y="280" width="337" height="128"/>
+                                        <rect key="frame" x="0.0" y="141" width="343" height="128"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dropoff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y4J-XD-3QL">
-                                                <rect key="frame" x="0.0" y="0.0" width="337" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="itj-kl-i4e">
-                                                <rect key="frame" x="0.0" y="28.5" width="337" height="99.5"/>
+                                                <rect key="frame" x="0.0" y="28.5" width="343" height="99.5"/>
                                                 <state key="normal" title="Select Dropoff Location"/>
                                                 <connections>
                                                     <action selector="clickDropoff:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Ssb-eT-xUr"/>
@@ -379,49 +352,226 @@
                                             <constraint firstAttribute="bottom" secondItem="itj-kl-i4e" secondAttribute="bottom" id="ycF-zA-4GX"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HB1-GL-r18">
-                                        <rect key="frame" x="0.0" y="420" width="337" height="128"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCk-5n-Ph7">
+                                        <rect key="frame" x="0.0" y="281" width="343" height="128"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WHEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHa-Kp-dcj">
-                                                <rect key="frame" x="32" y="0.0" width="305" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WHEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXP-bh-eG1">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Np-7r-M5l">
-                                                <rect key="frame" x="32" y="28" width="305" height="100"/>
-                                                <state key="normal" title="Select Dropoff Time"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oon-ZP-zpo">
+                                                <rect key="frame" x="0.0" y="28" width="343" height="100"/>
+                                                <state key="normal" title="Select Pickup Time"/>
                                                 <connections>
-                                                    <segue destination="44g-oM-UWi" kind="presentation" identifier="dropoffTime" id="Rft-yG-cql"/>
+                                                    <segue destination="44g-oM-UWi" kind="presentation" identifier="pickupTime" id="k3u-I0-HV2"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="9Np-7r-M5l" firstAttribute="top" secondItem="nHa-Kp-dcj" secondAttribute="bottom" constant="8" id="Ryn-ed-5dC"/>
-                                            <constraint firstItem="nHa-Kp-dcj" firstAttribute="top" secondItem="HB1-GL-r18" secondAttribute="top" id="hnv-pf-0Sy"/>
-                                            <constraint firstItem="nHa-Kp-dcj" firstAttribute="leading" secondItem="HB1-GL-r18" secondAttribute="leading" constant="32" id="nAX-Ox-voJ"/>
-                                            <constraint firstAttribute="bottom" secondItem="9Np-7r-M5l" secondAttribute="bottom" id="rQr-Zu-Buo"/>
-                                            <constraint firstAttribute="trailing" secondItem="nHa-Kp-dcj" secondAttribute="trailing" id="wcS-Du-qKY"/>
-                                            <constraint firstAttribute="trailing" secondItem="9Np-7r-M5l" secondAttribute="trailing" id="yRN-P1-9zj"/>
-                                            <constraint firstItem="9Np-7r-M5l" firstAttribute="leading" secondItem="HB1-GL-r18" secondAttribute="leading" constant="32" id="z00-i4-epV"/>
+                                            <constraint firstAttribute="trailing" secondItem="EXP-bh-eG1" secondAttribute="trailing" id="0Lf-MF-Rly"/>
+                                            <constraint firstAttribute="trailing" secondItem="oon-ZP-zpo" secondAttribute="trailing" id="2Yn-MD-7BX"/>
+                                            <constraint firstItem="EXP-bh-eG1" firstAttribute="top" secondItem="ZCk-5n-Ph7" secondAttribute="top" id="7KC-4f-D6F"/>
+                                            <constraint firstItem="oon-ZP-zpo" firstAttribute="top" secondItem="EXP-bh-eG1" secondAttribute="bottom" constant="8" id="PMK-ZQ-d6v"/>
+                                            <constraint firstItem="EXP-bh-eG1" firstAttribute="leading" secondItem="ZCk-5n-Ph7" secondAttribute="leading" id="cAJ-cF-GWp"/>
+                                            <constraint firstAttribute="bottom" secondItem="oon-ZP-zpo" secondAttribute="bottom" id="jOR-bf-xod"/>
+                                            <constraint firstItem="oon-ZP-zpo" firstAttribute="leading" secondItem="ZCk-5n-Ph7" secondAttribute="leading" id="vKl-C1-oKf"/>
                                         </constraints>
                                     </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qfb-0j-8hP">
+                                        <rect key="frame" x="0.0" y="421" width="343" height="200"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="50" placeholderIntrinsicHeight="200" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="w1I-fw-ZIV">
+                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="200"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Return Trip?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="523-up-mSY">
+                                                        <rect key="frame" x="0.0" y="0.0" width="93.5" height="161"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmf-dI-YD9">
+                                                        <rect key="frame" x="0.0" y="169" width="95.5" height="31"/>
+                                                        <connections>
+                                                            <action selector="didChangeReturnSwitch:" destination="8rJ-Kc-sve" eventType="valueChanged" id="iuS-ZC-cB6"/>
+                                                        </connections>
+                                                    </switch>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="523-up-mSY" firstAttribute="width" secondItem="w1I-fw-ZIV" secondAttribute="width" id="fjG-AW-avb"/>
+                                                </constraints>
+                                            </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HB1-GL-r18">
+                                                <rect key="frame" x="101.5" y="0.0" width="241.5" height="200"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Return Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHa-Kp-dcj">
+                                                        <rect key="frame" x="0.0" y="8" width="241.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Np-7r-M5l">
+                                                        <rect key="frame" x="0.0" y="36" width="241.5" height="164"/>
+                                                        <state key="normal" title="Select Return Time"/>
+                                                        <connections>
+                                                            <segue destination="44g-oM-UWi" kind="presentation" identifier="returnTime" id="Rft-yG-cql"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="9Np-7r-M5l" firstAttribute="top" secondItem="nHa-Kp-dcj" secondAttribute="bottom" constant="8" id="Ryn-ed-5dC"/>
+                                                    <constraint firstItem="nHa-Kp-dcj" firstAttribute="top" secondItem="HB1-GL-r18" secondAttribute="top" constant="8" id="hnv-pf-0Sy"/>
+                                                    <constraint firstItem="nHa-Kp-dcj" firstAttribute="leading" secondItem="HB1-GL-r18" secondAttribute="leading" id="nAX-Ox-voJ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="9Np-7r-M5l" secondAttribute="bottom" id="rQr-Zu-Buo"/>
+                                                    <constraint firstAttribute="trailing" secondItem="nHa-Kp-dcj" secondAttribute="trailing" id="wcS-Du-qKY"/>
+                                                    <constraint firstAttribute="trailing" secondItem="9Np-7r-M5l" secondAttribute="trailing" id="yRN-P1-9zj"/>
+                                                    <constraint firstItem="9Np-7r-M5l" firstAttribute="leading" secondItem="HB1-GL-r18" secondAttribute="leading" id="z00-i4-epV"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aby-Wb-G5x">
+                                        <rect key="frame" x="0.0" y="633" width="343" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="un8-d8-dG1">
+                                                <rect key="frame" x="0.0" y="0.0" width="49" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="mBW-CU-85w"/>
+                                                    <constraint firstAttribute="width" constant="40" id="qDO-eX-rp1"/>
+                                                </constraints>
+                                                <state key="normal" title="S" backgroundImage="button_compass_night.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clickSunday:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="NVZ-Co-Nn0"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8jg-mh-McO">
+                                                <rect key="frame" x="49" y="0.0" width="49" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="jd5-zc-hQu"/>
+                                                    <constraint firstAttribute="height" constant="40" id="tfV-NB-cYi"/>
+                                                </constraints>
+                                                <state key="normal" title="M" backgroundImage="button_compass.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clickMonday:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Nfp-4e-0Vw"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Kn-tG-MrM">
+                                                <rect key="frame" x="98" y="0.0" width="49" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="AgK-52-4yl"/>
+                                                    <constraint firstAttribute="width" constant="40" id="yVK-tZ-Tns"/>
+                                                </constraints>
+                                                <state key="normal" title="T" backgroundImage="button_compass_night.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clickTuesday:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="O6h-jR-zuU"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haW-Yc-Bge">
+                                                <rect key="frame" x="147" y="0.0" width="49" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="PCz-Hp-R6b"/>
+                                                    <constraint firstAttribute="width" constant="40" id="oKR-E2-3Sq"/>
+                                                </constraints>
+                                                <state key="normal" title="W" backgroundImage="button_compass_night.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clickWednesday:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Fxa-EG-nlb"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXz-dn-WEp">
+                                                <rect key="frame" x="196" y="0.0" width="49" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Rvv-A5-6rX"/>
+                                                    <constraint firstAttribute="width" constant="40" id="zyd-uC-Nfm"/>
+                                                </constraints>
+                                                <state key="normal" title="T" backgroundImage="button_compass_night.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clickThursday:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="F9m-8p-fN0"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIY-mM-Ig5">
+                                                <rect key="frame" x="245" y="0.0" width="49" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Q6i-fA-tRZ"/>
+                                                    <constraint firstAttribute="width" constant="40" id="oJJ-2q-NsV"/>
+                                                </constraints>
+                                                <state key="normal" title="F" backgroundImage="button_compass_night.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clickFriday:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="D9x-DR-5Xi"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8hz-iq-9fs">
+                                                <rect key="frame" x="294" y="0.0" width="49" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="PUV-sv-5Hl"/>
+                                                    <constraint firstAttribute="height" constant="40" id="mZf-Ud-QFR"/>
+                                                </constraints>
+                                                <state key="normal" title="S" backgroundImage="button_compass_night.png">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clickSaturday:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="PpM-IG-gJq"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YNM-GB-gqg">
+                                        <rect key="frame" x="0.0" y="685" width="343" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I Can Drive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNk-NU-5uf">
+                                                <rect key="frame" x="0.0" y="0.0" width="294" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Utw-fa-w1e">
+                                                <rect key="frame" x="294" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="didChangeCanDrive:" destination="8rJ-Kc-sve" eventType="valueChanged" id="ZM7-b2-mI5"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="G0m-Tz-JbX" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="G9K-h8-F3l"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="G0m-Tz-JbX" secondAttribute="trailing" id="BjR-PB-2Kd"/>
+                            <constraint firstItem="G0m-Tz-JbX" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="jZW-0S-ndx"/>
                             <constraint firstItem="G0m-Tz-JbX" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="uwL-L4-1qb"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="My Trip" image="second" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="canDriveSwitch" destination="Utw-fa-w1e" id="NGR-oQ-QW0"/>
                         <outlet property="dropoffButton" destination="itj-kl-i4e" id="bs6-dZ-nP9"/>
-                        <outlet property="dropoffTimeButton" destination="9Np-7r-M5l" id="fji-Nz-DOx"/>
+                        <outlet property="fridayButton" destination="dIY-mM-Ig5" id="dHz-BT-ELb"/>
+                        <outlet property="mondayButton" destination="8jg-mh-McO" id="ePU-YE-Cwz"/>
                         <outlet property="pickupButton" destination="Vcn-Jl-6AG" id="Z1R-2w-T5Q"/>
                         <outlet property="pickupTimeButton" destination="oon-ZP-zpo" id="4bK-uj-SoU"/>
+                        <outlet property="returnSwitch" destination="mmf-dI-YD9" id="0fD-0K-CV3"/>
+                        <outlet property="returnTimeButton" destination="9Np-7r-M5l" id="dzM-wj-FKf"/>
+                        <outlet property="returnTimeLabel" destination="nHa-Kp-dcj" id="2bg-8R-Jfq"/>
+                        <outlet property="saturdayButton" destination="8hz-iq-9fs" id="ORZ-sV-RGS"/>
+                        <outlet property="sundayButton" destination="un8-d8-dG1" id="fo3-08-TJ7"/>
+                        <outlet property="thursdayButton" destination="dXz-dn-WEp" id="ZkH-HH-rY3"/>
+                        <outlet property="tuesdayButton" destination="1Kn-tG-MrM" id="if5-KS-KoY"/>
+                        <outlet property="wednesdayButton" destination="haW-Yc-Bge" id="tAc-Zg-AFk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -656,6 +806,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="button_compass.png" width="40" height="40"/>
+        <image name="button_compass_night.png" width="40" height="40"/>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>

@@ -19,10 +19,22 @@ class MapViewController: UIViewController {
     @IBOutlet weak var pickupButton: UIButton!
     @IBOutlet weak var dropoffButton: UIButton!
     @IBOutlet weak var pickupTimeButton: UIButton!
-    @IBOutlet weak var dropoffTimeButton: UIButton!
+    @IBOutlet weak var returnTimeButton: UIButton!
     static var ref: FIRDatabaseReference!
+    @IBOutlet weak var returnTimeLabel: UILabel!
+    @IBOutlet weak var returnSwitch: UISwitch!
+    @IBOutlet weak var sundayButton: UIButton!
+    @IBOutlet weak var mondayButton: UIButton!
+    @IBOutlet weak var tuesdayButton: UIButton!
+    @IBOutlet weak var wednesdayButton: UIButton!
+    @IBOutlet weak var thursdayButton: UIButton!
+    @IBOutlet weak var fridayButton: UIButton!
+    @IBOutlet weak var saturdayButton: UIButton!
+    @IBOutlet weak var canDriveSwitch: UISwitch!
     
+    var dayOnImage : UIImage!
     override func viewDidLoad() {
+        dayOnImage = sundayButton.currentBackgroundImage
         resetCurrentTrip()
     }
     
@@ -44,10 +56,47 @@ class MapViewController: UIViewController {
                 self.setButtonValue(button: self.pickupTimeButton, value: pickupTime)
             }
             
-            if let dropoffTime = snapshot.childSnapshot(forPath: "dropoffTime").value {
-                self.setButtonValue(button: self.dropoffTimeButton, value: dropoffTime)
+            if let returnTime = snapshot.childSnapshot(forPath: "returnTime").value {
+                self.setButtonValue(button: self.returnTimeButton, value: returnTime)
+            }
+            
+            if let doReturn = snapshot.childSnapshot(forPath: "doReturn").value as? Bool {
+                self.returnSwitch.isOn = doReturn
+                if doReturn {
+                    self.returnTimeLabel.alpha = 1
+                    self.returnTimeButton.isEnabled = true
+                } else {
+                    self.returnTimeLabel.alpha = 0.5
+                    self.returnTimeButton.isEnabled = false
+                }
+            }
+            
+            self.setButtonBackground(name: "doSunday", button: self.sundayButton, snapshot: snapshot)
+            self.setButtonBackground(name: "doMonday", button: self.mondayButton, snapshot: snapshot)
+            self.setButtonBackground(name: "doTuesday", button: self.tuesdayButton, snapshot: snapshot)
+            self.setButtonBackground(name: "doWednesday", button: self.wednesdayButton, snapshot: snapshot)
+            self.setButtonBackground(name: "doThursday", button: self.thursdayButton, snapshot: snapshot)
+            self.setButtonBackground(name: "doFriday", button: self.fridayButton, snapshot: snapshot)
+            self.setButtonBackground(name: "doSaturday", button: self.saturdayButton, snapshot: snapshot)
+            
+            if let canDrive = snapshot.childSnapshot(forPath: "canDrive").value as? Bool {
+                self.canDriveSwitch.isOn = canDrive
             }
         })
+    }
+    
+    func setButtonBackground(name: String, button: UIButton, snapshot: FIRDataSnapshot){
+        if let doDay = snapshot.childSnapshot(forPath: name).value as? Bool {
+            if doDay {
+                button.setBackgroundImage(self.dayOnImage, for: UIControlState.normal)
+                button.setTitleColor(UIColor.white, for: UIControlState.normal)
+            } else {
+                button.setBackgroundImage(nil, for: UIControlState.normal)
+                button.setTitleColor(UIColor.black, for: UIControlState.normal)
+            }
+        } else {
+            MapViewController.ref.child(name).setValue(true)
+        }
     }
     
     func setButtonValue(button: UIButton, value: Any){
@@ -86,6 +135,9 @@ class MapViewController: UIViewController {
             }
         })
     }
+    @IBAction func didChangeReturnSwitch(_ sender: UISwitch) {
+        MapViewController.ref.child("doReturn").setValue(sender.isOn)
+    }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         switch identifier {
@@ -95,9 +147,9 @@ class MapViewController: UIViewController {
             }
             break
             
-        case "dropoffTime":
-            if let time = self.dropoffTimeButton.titleLabel?.text {
-                TimePickerViewController.set(name: "dropoffTime", time: time)
+        case "returnTime":
+            if let time = self.returnTimeButton.titleLabel?.text {
+                TimePickerViewController.set(name: "returnTime", time: time)
             }
             break
             
@@ -106,5 +158,29 @@ class MapViewController: UIViewController {
         }
         
         return true
+    }
+    @IBAction func clickSunday(_ sender: UIButton) {
+        MapViewController.ref.child("doSunday").setValue(sender.currentBackgroundImage != dayOnImage)
+    }
+    @IBAction func clickMonday(_ sender: UIButton) {
+        MapViewController.ref.child("doMonday").setValue(sender.currentBackgroundImage != dayOnImage)
+    }
+    @IBAction func clickTuesday(_ sender: UIButton) {
+        MapViewController.ref.child("doTuesday").setValue(sender.currentBackgroundImage != dayOnImage)
+    }
+    @IBAction func clickWednesday(_ sender: UIButton) {
+        MapViewController.ref.child("doWednesday").setValue(sender.currentBackgroundImage != dayOnImage)
+    }
+    @IBAction func clickThursday(_ sender: UIButton) {
+        MapViewController.ref.child("doThursday").setValue(sender.currentBackgroundImage != dayOnImage)
+    }
+    @IBAction func clickFriday(_ sender: UIButton) {
+        MapViewController.ref.child("doFriday").setValue(sender.currentBackgroundImage != dayOnImage)
+    }
+    @IBAction func clickSaturday(_ sender: UIButton) {
+        MapViewController.ref.child("doSaturday").setValue(sender.currentBackgroundImage != dayOnImage)
+    }
+    @IBAction func didChangeCanDrive(_ sender: UISwitch) {
+        MapViewController.ref.child("canDrive").setValue(sender.isOn)
     }
 }
