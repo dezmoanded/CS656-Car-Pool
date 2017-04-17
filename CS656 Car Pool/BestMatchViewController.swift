@@ -35,7 +35,7 @@ class BestMatchViewController: UIViewController {
     }
     
     func callDistanceMatrix(origins: String, destinations: String, name: String) {
-        var url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
+        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
             + origins
             + "&destinations="
             + destinations
@@ -46,9 +46,8 @@ class BestMatchViewController: UIViewController {
         let session = URLSession.shared
         let task = session.dataTask(with: urlRequest as URLRequest) {
             (data, response, error) -> Void in
-            
-            let httpResponse = response as! HTTPURLResponse
-            let statusCode = httpResponse.statusCode
+            //let httpResponse = response as! HTTPURLResponse
+            //let statusCode = httpResponse.statusCode
             if let data = data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String, Any>
