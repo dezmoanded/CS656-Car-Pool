@@ -36,50 +36,66 @@ class ListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 14
+        return 7
     }
 
-    let formats = ["SUNDAY - %@",
-                   "SUNDAY Return - %@",
-                   "MONDAY - %@",
-                   "MONDAY Return - %@",
-                   "TUESDAY - %@",
-                   "TUESDAY Return - %@",
-                   "WEDNESDAY - %@",
-                   "WEDNESDAY Return - %@",
-                   "THURSDAY - %@",
-                   "THURSDAY Return - %@",
-                   "FRIDAY - %@",
-                   "FRIDAY Return - %@",
-                   "SATURDAY - %@",
-                   "SATURDAY Return - %@"]
+//    let formats = ["SUNDAY - %@",
+//                   "SUNDAY Return - %@",
+//                   "MONDAY - %@",
+//                   "MONDAY Return - %@",
+//                   "TUESDAY - %@",
+//                   "TUESDAY Return - %@",
+//                   "WEDNESDAY - %@",
+//                   "WEDNESDAY Return - %@",
+//                   "THURSDAY - %@",
+//                   "THURSDAY Return - %@",
+//                   "FRIDAY - %@",
+//                   "FRIDAY Return - %@",
+//                   "SATURDAY - %@",
+//                   "SATURDAY Return - %@"]
+//    
+//    let names = ["sunday",
+//                 "sundayReturn",
+//                 "monday",
+//                 "mondayReturn",
+//                 "tuesday",
+//                 "tuesdayReturn",
+//                 "wednesday",
+//                 "wednesdayReturn",
+//                 "thursday",
+//                 "thursdayReturn",
+//                 "friday",
+//                 "fridayReturn",
+//                 "saturday",
+//                 "saturdayReturn"]
     
-    let names = ["sunday",
-                 "sundayReturn",
+    let formats = ["SUNDAY - %@",
+                   "MONDAY - %@",
+                   "TUESDAY - %@",
+                   "WEDNESDAY - %@",
+                   "THURSDAY - %@",
+                   "FRIDAY - %@",
+                   "SATURDAY - %@"]
+    
+    static let names = ["sunday",
                  "monday",
-                 "mondayReturn",
                  "tuesday",
-                 "tuesdayReturn",
                  "wednesday",
-                 "wednesdayReturn",
                  "thursday",
-                 "thursdayReturn",
                  "friday",
-                 "fridayReturn",
-                 "saturday",
-                 "saturdayReturn"]
+                 "saturday"]
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListTableViewCell
         
-        cell.set(labelFormat: formats[indexPath.row], name: names[indexPath.row])
+        cell.set(labelFormat: formats[indexPath.row], name: ListTableViewController.names[indexPath.row])
 
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (view.frame.height - 79) / 14
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return (view.frame.height - 79) / 7
+//    }
     
 
     /*

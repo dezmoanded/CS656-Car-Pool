@@ -12,7 +12,6 @@
 		DA47FA101E9C939D006361FD /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA47FA0F1E9C939D006361FD /* TimePickerViewController.swift */; };
 		DA47FA131EA2EA01006361FD /* button_compass_night.png in Resources */ = {isa = PBXBuildFile; fileRef = DA47FA111EA2EA01006361FD /* button_compass_night.png */; };
 		DA47FA141EA2EA01006361FD /* button_compass_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA47FA121EA2EA01006361FD /* button_compass_night@2x.png */; };
-		DA47FA161EA306F5006361FD /* BestMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA47FA151EA306F5006361FD /* BestMatchViewController.swift */; };
 		DA47FA181EA476EF006361FD /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA47FA171EA476EF006361FD /* ListTableViewController.swift */; };
 		DA47FA1A1EA477C9006361FD /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA47FA191EA477C9006361FD /* ListTableViewCell.swift */; };
 		DA7DAEC81E7602E70014F774 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA7DAEC71E7602E70014F774 /* GoogleService-Info.plist */; };
@@ -34,7 +33,6 @@
 		DA47FA0F1E9C939D006361FD /* TimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
 		DA47FA111EA2EA01006361FD /* button_compass_night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_compass_night.png; sourceTree = "<group>"; };
 		DA47FA121EA2EA01006361FD /* button_compass_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_compass_night@2x.png"; sourceTree = "<group>"; };
-		DA47FA151EA306F5006361FD /* BestMatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestMatchViewController.swift; sourceTree = "<group>"; };
 		DA47FA171EA476EF006361FD /* ListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		DA47FA191EA477C9006361FD /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		DA7DAEC71E7602E70014F774 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 				DA47FA0F1E9C939D006361FD /* TimePickerViewController.swift */,
 				DA47FA111EA2EA01006361FD /* button_compass_night.png */,
 				DA47FA121EA2EA01006361FD /* button_compass_night@2x.png */,
-				DA47FA151EA306F5006361FD /* BestMatchViewController.swift */,
 				DA47FA171EA476EF006361FD /* ListTableViewController.swift */,
 				DA47FA191EA477C9006361FD /* ListTableViewCell.swift */,
 			);
@@ -257,7 +254,6 @@
 			files = (
 				DAB45CD11E75E27E00DEA1E6 /* LoginViewController.swift in Sources */,
 				DA47FA101E9C939D006361FD /* TimePickerViewController.swift in Sources */,
-				DA47FA161EA306F5006361FD /* BestMatchViewController.swift in Sources */,
 				DA7DAECD1E764F9D0014F774 /* ScrollViewKeeper.swift in Sources */,
 				DAB45CB91E75D87C00DEA1E6 /* AppDelegate.swift in Sources */,
 				DA2D5A3F1E8781880056828F /* TabBarController.swift in Sources */,

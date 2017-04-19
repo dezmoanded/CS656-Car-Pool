@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class TimePickerViewController: UIViewController {
     static var name : String = ""
     static var time : String = ""
     
+    @IBOutlet var times: [UIButton]!
     @IBOutlet weak var timePicker: UIDatePicker!
     
     let dateFormatter = DateFormatter()
@@ -25,8 +27,33 @@ class TimePickerViewController: UIViewController {
         if let timeDate = dateFormatter.date(from: TimePickerViewController.time) {
             self.timePicker.setDate(timeDate, animated: false)
         }
+        
+        for i in 0 ... times.count - 1 {
+            times[i].tag = i
+        }
+        
+        ProfileViewController.ref.child("trips").observe(FIRDataEventType.value, with: { (snapshot) in
+            for trip in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                for i in 0 ... ListTableViewController.names.count - 1 {
+                    if trip.key == ListTableViewController.names[i] {
+                        if let dropoffTime = trip.childSnapshot(forPath: "dropoffTime").value as? String {
+                            self.currentButton?.setTitle(dropoffTime, for: UIControlState.normal)
+                        }
+                    }
+                }
+            }
+        })
     }
 
+    var currentButton : UIButton? = nil
+    @IBAction func touchTimes(_ sender: UIButton) {
+        let fontSize = sender.titleLabel!.font.pointSize
+        currentButton?.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+        currentButton = times[sender.tag]
+        currentButton?.titleLabel?.font = UIFont.boldSystemFont(ofSize: fontSize)
+        TimePickerViewController.name = ListTableViewController.names[sender.tag]
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -37,9 +64,10 @@ class TimePickerViewController: UIViewController {
         TimePickerViewController.time = time
     }
     
-    @IBAction func clickDone(_ sender: Any) {
-        MapViewController.ref.child(TimePickerViewController.name).setValue(dateFormatter.string(from: self.timePicker.date))
-        self.dismiss(animated: true)
+    @IBAction func timePickerChanged(_ sender: Any) {
+        let time = dateFormatter.string(from: self.timePicker.date)
+        ProfileViewController.ref.child("trips")
+            .child(TimePickerViewController.name).child("dropoffTime").setValue(time)
     }
 
     /*
