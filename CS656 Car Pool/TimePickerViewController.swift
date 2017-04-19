@@ -30,6 +30,7 @@ class TimePickerViewController: UIViewController {
         
         for i in 0 ... times.count - 1 {
             times[i].tag = i
+            times[i].setTitle("Select Time", for: UIControlState.normal)
         }
         
         ProfileViewController.ref.child("trips").observe(FIRDataEventType.value, with: { (snapshot) in
@@ -37,7 +38,10 @@ class TimePickerViewController: UIViewController {
                 for i in 0 ... ListTableViewController.names.count - 1 {
                     if trip.key == ListTableViewController.names[i] {
                         if let dropoffTime = trip.childSnapshot(forPath: "dropoffTime").value as? String {
-                            self.currentButton?.setTitle(dropoffTime, for: UIControlState.normal)
+                            self.times[i].setTitle(dropoffTime, for: UIControlState.normal)
+                        }
+                        if let isOn = trip.childSnapshot(forPath: "on").value as? Bool {
+                            self.times[i].isEnabled = isOn
                         }
                     }
                 }

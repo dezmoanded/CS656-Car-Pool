@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ListTableViewController: UITableViewController {
 
@@ -38,36 +39,6 @@ class ListTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 7
     }
-
-//    let formats = ["SUNDAY - %@",
-//                   "SUNDAY Return - %@",
-//                   "MONDAY - %@",
-//                   "MONDAY Return - %@",
-//                   "TUESDAY - %@",
-//                   "TUESDAY Return - %@",
-//                   "WEDNESDAY - %@",
-//                   "WEDNESDAY Return - %@",
-//                   "THURSDAY - %@",
-//                   "THURSDAY Return - %@",
-//                   "FRIDAY - %@",
-//                   "FRIDAY Return - %@",
-//                   "SATURDAY - %@",
-//                   "SATURDAY Return - %@"]
-//    
-//    let names = ["sunday",
-//                 "sundayReturn",
-//                 "monday",
-//                 "mondayReturn",
-//                 "tuesday",
-//                 "tuesdayReturn",
-//                 "wednesday",
-//                 "wednesdayReturn",
-//                 "thursday",
-//                 "thursdayReturn",
-//                 "friday",
-//                 "fridayReturn",
-//                 "saturday",
-//                 "saturdayReturn"]
     
     let formats = ["SUNDAY - %@",
                    "MONDAY - %@",

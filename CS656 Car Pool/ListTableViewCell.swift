@@ -14,16 +14,59 @@ class ListTableViewCell: UITableViewCell {
     var name = ""
     
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var button: UIButton!
     
     var ref: FIRDatabaseReference!
     
+    let dateFormatter = DateFormatter()
+    
     func set(labelFormat: String, name: String){
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        
         self.labelFormat = labelFormat
         self.name = name
         
-        ref = ProfileViewController.ref.child("trips/(name)")
-        label.text = String.init(format: labelFormat, "...")
+        ref = ProfileViewController.ref.child("trips/\(name)")
+        label.text = String.init(format: labelFormat, "(no trip)")
+        
+        ref.observe(FIRDataEventType.value, with: { (snapshot) in
+            if let isOn = snapshot.childSnapshot(forPath: "on").value as? Bool,
+                isOn {
+                self.label.isEnabled = true
+                self.setPickupTime(trip: snapshot)
+            } else {
+                self.label.isEnabled = false
+            }
+        })
+    }
+    
+    func setPickupTime(trip: FIRDataSnapshot) {
+        if let driver = trip.childSnapshot(forPath: "driver").value as? String ?? ProfileViewController.ref?.key {
+            FIRDatabase.database().reference().child("users/\(driver)").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+                if let stops = snapshot.childSnapshot(forPath: "/trips/\(self.name)/stops").value as? [String] {
+                    for i in 0 ... stops.count - 1 {
+                        if stops[i] == ProfileViewController.ref.key + "/pickup" {
+                            FIRDatabase.database().reference().child("distanceMatrix").observeSingleEvent(of: FIRDataEventType.value, with: { (dmSnapshot) in
+                                FIRDatabase.database().reference().child("usersForMatrix").observeSingleEvent(of: FIRDataEventType.value, with: { (matrixUsers) in
+                                    let time = MapViewController.totalTripTime(stops: Array(stops.suffix(from: i)),
+                                                                               matrix: dmSnapshot,
+                                                                               matrixUsers: matrixUsers)
+                                    if let driverDropoffTime = snapshot
+                                        .childSnapshot(forPath: "/trips/\(self.name)/earliestDropoffTime")
+                                        .value as? String {
+                                        if let userPickupTime = self.dateFormatter.date(from: driverDropoffTime)?
+                                            .addingTimeInterval(-(Double)(time)){
+                                            self.label.text = String.init(format: self.labelFormat,
+                                                                          "Pickup at \(self.dateFormatter.string(from: userPickupTime))\t\t>")
+                                        }
+                                    }
+                                })
+                            })
+                        }
+                    }
+                }
+            })
+        }
     }
 
     override func awakeFromNib() {

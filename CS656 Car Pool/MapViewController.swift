@@ -32,9 +32,15 @@ class MapViewController: UIViewController {
     @IBOutlet weak var saturdayButton: UIButton!
     @IBOutlet weak var canDriveSwitch: UISwitch!
     
+    let dateFormatter = DateFormatter()
+    
     var dayOnImage : UIImage!
     override func viewDidLoad() {
         dayOnImage = sundayButton.currentBackgroundImage
+        
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        
         resetCurrentTrip()
     }
     
@@ -104,7 +110,7 @@ class MapViewController: UIViewController {
                 if canDrive {
                     canDriveHandle = distanceMatrixUpdatedByRef.observe(FIRDataEventType.value, with: { (lastUpdateSnapshot) in
                         ProfileViewController.ref.observeSingleEvent(of: FIRDataEventType.value, with: { (driverSnapshot) in
-                            var lastUpdateTime = Int.max
+                            var lastUpdateTime = 0
                             if let lut = driverSnapshot.childSnapshot(forPath: "lastProcessedUpdate").value as? Int {
                                 lastUpdateTime = lut
                             }
@@ -118,7 +124,9 @@ class MapViewController: UIViewController {
                                                               matrixUsers: matrixUsersSnapshot)
                                         }
                                     }
-                                    ProfileViewController.ref.child("lastProcessedUpdate").setValue(lastUpdateTime)
+                                    if let newUpdateTime = lastUpdateSnapshot.children.allObjects.first as? FIRDataSnapshot {
+                                        ProfileViewController.ref.child("lastProcessedUpdate").setValue(newUpdateTime.key)
+                                    }
                                 })
                             })
                         })
@@ -159,19 +167,43 @@ class MapViewController: UIViewController {
                     let userTrip = userSnapshot.childSnapshot(forPath: "trips/\(driverTrip.key)") as? FIRDataSnapshot,
                     let doTrip = userTrip.childSnapshot(forPath: "on").value as? Bool,
                     doTrip,
-                    self.timesMakeSense(driverTrip: driverTrip, userTrip: userTrip),
-                    let stops = driverTrip.childSnapshot(forPath: "stops").value as? [String] {
+                    self.timesMakeSense(driverTrip: driverTrip, userTrip: userTrip) {
+                    
+                    var stops = driverTrip.childSnapshot(forPath: "stops").value as? [String]
+                    
+                    if stops == nil {
+                        stops = [driver.key + "/pickup", driver.key + "/dropoff"]
+                    }
                     
                     var bestTime = Int.max
                     if userTrip.hasChild("bestTime") {
                         bestTime = userTrip.childSnapshot(forPath: "bestTime").value as! Int
                     }
-                    for i in 1 ... stops.count - 1 {
-                        for j in i ... stops.count - 1 {
-                            var tempStops = stops
+                    
+                    for i in 1 ... stops!.count - 1 {
+                        for j in i ... stops!.count - 1 {
+                            var tempStops = stops!
                             tempStops.insert("\(user)/pickup", at: i)
-                            tempStops.insert("\(user)/dropoff", at: j)
-                            if self.totalTripTime(stops: tempStops, matrix: matrix, matrixUsers: matrixUsers) < bestTime{
+                            tempStops.insert("\(user)/dropoff", at: j + 1)
+                            var tripTime = MapViewController.totalTripTime(stops: tempStops,
+                                                                           matrix: matrix,
+                                                                           matrixUsers: matrixUsers)
+                            
+                            if let earliestDropoff = driverTrip.childSnapshot(forPath: "earliestDropoffTime")
+                                .value as? String
+                                ?? driverTrip.childSnapshot(forPath: "dropoffTime").value as? String,
+                                let earliestDropoffTime = self.dateFormatter.date(from: earliestDropoff),
+                                let userDropoff = userTrip.childSnapshot(forPath: "dropoffTime").value as? String,
+                                let userDropoffTime = self.dateFormatter.date(from: userDropoff){
+                                
+                                if userDropoffTime < earliestDropoffTime {
+                                    tripTime += Int(earliestDropoffTime.timeIntervalSince(userDropoffTime))
+                                    ProfileViewController.ref.child("trips/\(driverTrip.key)/earliestDropoffTime")
+                                        .setValue(self.dateFormatter.string(from: userDropoffTime))
+                                }
+                            }
+                            
+                            if tripTime < bestTime{
                                 if let oldDriver = userTrip.childSnapshot(forPath: "driver").value as? String,
                                     oldDriver != driver.key {
                                     self.removeStopFromOldDriversTrip(driver: oldDriver,
@@ -180,6 +212,9 @@ class MapViewController: UIViewController {
                                 }
                                 
                                 self.addToTrip(user: user, driver: driver.key, trip: driverTrip.key, stops: tempStops)
+                                FIRDatabase.database().reference()
+                                    .child("users/\(user)/trips/\(driverTrip.key)/bestTime")
+                                    .setValue(tripTime)
                             }
                         }
                     }
@@ -188,23 +223,26 @@ class MapViewController: UIViewController {
         })
     }
     
-    func totalTripTime(stops: [String], matrix: FIRDataSnapshot, matrixUsers: FIRDataSnapshot) -> Int{
+    static func totalTripTime(stops: [String], matrix: FIRDataSnapshot, matrixUsers: FIRDataSnapshot) -> Int{
         var totalTime = 0
         for i in 0 ... stops.count - 2 {
-            let origin = matrixUsers.childSnapshot(forPath: stops[i]).value as! String
-            let destination = matrixUsers.childSnapshot(forPath: stops[i + 1]).value as! String
+            let origin = matrixUsers.childSnapshot(forPath: stops[i]).value as! NSNumber
+            let destination = matrixUsers.childSnapshot(forPath: stops[i + 1]).value as! NSNumber
             totalTime += matrix.childSnapshot(forPath: "rows/\(origin)/elements/\(destination)/duration/value").value as! Int
         }
         return totalTime
     }
     
     func timesMakeSense(driverTrip: FIRDataSnapshot, userTrip: FIRDataSnapshot) -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.none
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        let driverTime = dateFormatter.date(from: driverTrip.childSnapshot(forPath: "dropoffTime").value as! String)
-        let userTime = dateFormatter.date(from: userTrip.childSnapshot(forPath: "dropoffTime").value as! String)
-        return userTime! < driverTime!
+        if let driverTimeString = driverTrip.childSnapshot(forPath: "dropoffTime").value as? String,
+            let userTimeString = userTrip.childSnapshot(forPath: "dropoffTime").value as? String {
+            
+            let driverTime = dateFormatter.date(from: driverTimeString)
+            let userTime = dateFormatter.date(from: userTimeString)
+            return userTime! < driverTime!
+        } else {
+            return false
+        }
     }
     
     func addToTrip(user: String, driver: String, trip: String, stops: [String]){
@@ -276,9 +314,9 @@ class MapViewController: UIViewController {
                 button.setBackgroundImage(nil, for: UIControlState.normal)
                 button.setTitleColor(UIColor.black, for: UIControlState.normal)
             }
-            ProfileViewController.ref.child("trip/\(name)/on").setValue(doDay)
+            ProfileViewController.ref.child("trips/\(name)/on").setValue(doDay)
         } else {
-            MapViewController.ref.child(name).setValue(true)
+            MapViewController.ref.child(name).setValue(false)
         }
     }
     
