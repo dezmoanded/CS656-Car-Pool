@@ -104,14 +104,13 @@ class ListTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? TripViewController,
+            let cell = sender as? ListTableViewCell{
+            
+            cell.ref.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+                destination.setupMap(trip: snapshot)
+            })
+        }
     }
-    */
-
 }
