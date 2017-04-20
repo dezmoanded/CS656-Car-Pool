@@ -110,6 +110,7 @@ class ListTableViewController: UITableViewController {
             
             cell.ref.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
                 destination.setupMap(trip: snapshot)
+                destination.title = cell.label.text
             })
         }
     }

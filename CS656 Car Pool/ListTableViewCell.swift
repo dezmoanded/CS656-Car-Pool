@@ -57,7 +57,7 @@ class ListTableViewCell: UITableViewCell {
                                         if let userPickupTime = self.dateFormatter.date(from: driverDropoffTime)?
                                             .addingTimeInterval(-(Double)(time)){
                                             self.label.text = String.init(format: self.labelFormat,
-                                                                          "Pickup at \(self.dateFormatter.string(from: userPickupTime))\t\t>")
+                                                                          "Pickup at \(self.dateFormatter.string(from: userPickupTime))")
                                         }
                                     }
                                 })
