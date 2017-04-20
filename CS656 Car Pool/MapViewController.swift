@@ -415,8 +415,4 @@ class MapViewController: UIViewController {
     @IBAction func didChangeCanDrive(_ sender: UISwitch) {
         MapViewController.ref.child("canDrive").setValue(sender.isOn)
     }
-    
-    @IBAction func clickFindCarpool(_ sender: Any) {
-        
-    }
 }
