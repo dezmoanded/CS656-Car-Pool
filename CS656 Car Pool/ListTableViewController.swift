@@ -108,10 +108,9 @@ class ListTableViewController: UITableViewController {
         if let destination = segue.destination as? TripViewController,
             let cell = sender as? ListTableViewCell{
             
-            cell.ref.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
-                destination.setupMap(trip: snapshot)
-                destination.title = cell.label.text
-            })
+            destination.setupMap(tripRef: cell.ref)
+            
+            destination.title = cell.label.text
         }
     }
 }

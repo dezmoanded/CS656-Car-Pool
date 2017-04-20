@@ -15,6 +15,8 @@ class TripTableViewController: UITableViewController {
     var passengers : [String] = []
     var trip : FIRDataSnapshot? = nil
     var tvc : TripViewController? = nil
+    var passengersText : [String] = []
+    var driverText = ""
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -25,12 +27,43 @@ class TripTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : passengers.count
+        return section == 0 ? 1 : passengersText.count
+    }
+    
+    func loadPassengers() {
+        passengersText = []
+        if passengers.count > 0 {
+            for i in 0 ... passengers.count - 1 {
+                FIRDatabase.database().reference().child("users/\(passengers[i])/profile").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+                    if let firstName = snapshot.childSnapshot(forPath: "firstName").value as? String,
+                        let lastName = snapshot.childSnapshot(forPath: "lastName").value as? String,
+                        let phone = snapshot.childSnapshot(forPath: "phoneNumber").value as? String {
+                        
+                        self.passengersText.append(firstName + " " + lastName + " - " + phone)
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                    }
+                })
+            }
+        }
+        
+        FIRDatabase.database().reference().child("users/\(driver)/profile").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+            if let firstName = snapshot.childSnapshot(forPath: "firstName").value as? String,
+                let lastName = snapshot.childSnapshot(forPath: "lastName").value as? String,
+                let phone = snapshot.childSnapshot(forPath: "phoneNumber").value as? String {
+                
+                self.driverText = firstName + " " + lastName + " - " + phone
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        })
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "passengerCell")!
-        cell.textLabel?.text = indexPath.section == 0 ? driver : passengers[indexPath.row]
+        cell.textLabel?.text = indexPath.section == 0 ? driverText : passengersText[indexPath.row]
         return cell
     }
     
@@ -42,19 +75,25 @@ class TripTableViewController: UITableViewController {
         if (editingStyle == UITableViewCellEditingStyle.delete),
             let tripKey = trip?.key {
             let passenger = passengers[indexPath.row]
-            FIRDatabase.database().reference().child("users/\(passenger)/trips/\(tripKey)/driver").removeValue()
+            let passTripRef = FIRDatabase.database().reference().child("users/\(passenger)/trips/\(tripKey)")
+            passTripRef.child("driver").removeValue()
+            passTripRef.child("bestTime").removeValue()
                 
             let tripRef = FIRDatabase.database().reference().child("users/\(driver)/trips/\(tripKey)")
             let stops = tripRef.child("stops")
             stops.observeSingleEvent(of: FIRDataEventType.value, with: { (stopsSnapshot) in
-                for stop in stopsSnapshot.children.allObjects as! [FIRDataSnapshot] {
-                    if let p = stop.value as? String {
-                        if p.contains(passenger) {
-                            stops.child(stop.key).removeValue() /////// Keys don't change!!!
-                        }
-                    }
+                if let stopsList = stopsSnapshot.value as? [String] {
+                    let newList = stopsList.filter({ (stop) -> Bool in
+                        !stop.contains(passenger)
+                    })
+                    stops.setValue(newList)
                 }
             })
+            
+            tripRef.child("deleted/" + passenger).setValue(true)
+            
+            passengers.remove(at: indexPath.row)
+            loadPassengers()
         }
     }
 }
@@ -81,25 +120,27 @@ class TripViewController: UIViewController, GMSMapViewDelegate {
         self.mapView.delegate = self;
     }
     
-    func setupMap(trip: FIRDataSnapshot) {
-        ttvc.trip = trip
-        if let driver = trip.childSnapshot(forPath: "driver").value as? String ?? ProfileViewController.ref?.key {
-            ttvc.driver = driver
-            FIRDatabase.database().reference().child("users/\(driver)").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
-                FIRDatabase.database().reference().child("distanceMatrix").observeSingleEvent(of: FIRDataEventType.value, with: { (matrix) in
-                    FIRDatabase.database().reference().child("usersForMatrix").observeSingleEvent(of: FIRDataEventType.value, with: { (matrixUsers) in
-                        if let stops = snapshot.childSnapshot(forPath: "/trips/\(trip.key)/stops").value as? [String] {
-                            self.setupDirections(stops: stops, matrix: matrix, matrixUsers: matrixUsers)
-                        }
+    func setupMap(tripRef: FIRDatabaseReference) {
+        tripRef.observe(FIRDataEventType.value, with: { (trip) in
+            DispatchQueue.main.async {
+                self.mapView?.clear()
+            }
+            self.ttvc.trip = trip
+            if let driver = trip.childSnapshot(forPath: "driver").value as? String ?? ProfileViewController.ref?.key {
+                self.ttvc.driver = driver
+                FIRDatabase.database().reference().child("users/\(driver)").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+                    FIRDatabase.database().reference().child("distanceMatrix").observeSingleEvent(of: FIRDataEventType.value, with: { (matrix) in
+                        FIRDatabase.database().reference().child("usersForMatrix").observeSingleEvent(of: FIRDataEventType.value, with: { (matrixUsers) in
+                            if let stops = snapshot.childSnapshot(forPath: "/trips/\(trip.key)/stops").value as? [String] {
+                                self.setupDirections(stops: stops, matrix: matrix, matrixUsers: matrixUsers)
+                            }
+                        })
                     })
                 })
-            })
-            
-            let tripRef = FIRDatabase.database().reference().child("users/\(driver)/trips/\(trip.key)")
-            tripRef.observe(FIRDataEventType.childChanged, with: { (snapshot) in
-                self.setupMap(trip: snapshot)
-            })
-        }
+                
+                let tripRef = FIRDatabase.database().reference().child("users/\(driver)/trips/\(trip.key)")
+            }
+        })
     }
     
     func setupDirections(stops: [String], matrix: FIRDataSnapshot, matrixUsers: FIRDataSnapshot) {
@@ -122,6 +163,8 @@ class TripViewController: UIViewController, GMSMapViewDelegate {
                     }
                 }
             }
+            
+            ttvc.loadPassengers()
             
             url += "&key=AIzaSyAqf9BYIrF31Pa9r75D9s7sGMfEItcdN2c"
             callGoogleDirections(url: url)

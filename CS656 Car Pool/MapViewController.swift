@@ -169,6 +169,10 @@ class MapViewController: UIViewController {
                     doTrip,
                     self.timesMakeSense(driverTrip: driverTrip, userTrip: userTrip) {
                     
+                    if driverTrip.childSnapshot(forPath: "deleted/" + user).value as? Bool ?? false {
+                        continue
+                    }
+                    
                     var stops = driverTrip.childSnapshot(forPath: "stops").value as? [String]
                     
                     if stops == nil {
@@ -302,6 +306,12 @@ class MapViewController: UIViewController {
             }
             ref.child(String.init(format: "%d", Int(Date.init().timeIntervalSince1970)))
                 .setValue(ProfileViewController.ref.key)
+        })
+        
+        ProfileViewController.ref.child("trips").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+            for trip in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                ProfileViewController.ref.child("trips/\(trip.key)/bestTime").removeValue()
+            }
         })
     }
     
