@@ -39,7 +39,11 @@ class TripTableViewController: UITableViewController {
                         let lastName = snapshot.childSnapshot(forPath: "lastName").value as? String,
                         let phone = snapshot.childSnapshot(forPath: "phoneNumber").value as? String {
                         
-                        self.passengersText.append(firstName + " " + lastName + " - " + phone)
+                        let passText = firstName + " " + lastName + " - " + phone
+                        self.passengersText.append(passText)
+                        if let newHTML = self.tvc?.directionsHTML.replacingOccurrences(of: self.passengers[i], with: passText) {
+                            self.tvc?.directionsHTML = newHTML
+                        }
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
@@ -105,6 +109,7 @@ class TripViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
     let ttvc = TripTableViewController()
+    var directionsHTML = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -183,6 +188,7 @@ class TripViewController: UIViewController, GMSMapViewDelegate {
         let requestURL = URL(string: url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL!)
         let session = URLSession.shared
+        directionsHTML = ""
         let task = session.dataTask(with: urlRequest as URLRequest) {
             (data, response, error) -> Void in
             //let httpResponse = response as! HTTPURLResponse
@@ -194,6 +200,7 @@ class TripViewController: UIViewController, GMSMapViewDelegate {
                     var bounds = GMSCoordinateBounds()
                     if let route = (json["routes"] as? [Dictionary<String, Any>])?.first {
                         var didFirstMarker = false
+                        var i = 0
                         for leg in route["legs"] as! [Dictionary<String, Any>] {
                             if !didFirstMarker {
                                 self.putMarker(location: leg["start_location"])
@@ -214,7 +221,17 @@ class TripViewController: UIViewController, GMSMapViewDelegate {
                                         pl.map = self.mapView
                                     }
                                 }
+                                
+                                if let html = step["html_instructions"] as? String {
+                                    self.directionsHTML += html + "<br>"
+                                }
                             }
+                            
+                            if i < self.ttvc.passengers.count,
+                                let address = leg["end_address"] as? String {
+                                self.directionsHTML += "<br><b>Pickup \(self.ttvc.passengers[i])</b> at \(address)<br><br>"
+                            }
+                            i += 1
                         }
                     }
                     
@@ -253,14 +270,9 @@ class TripViewController: UIViewController, GMSMapViewDelegate {
         self.navigationController?.isNavigationBarHidden = false
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? DirectionsViewController {
+            destination.html = directionsHTML
+        }
     }
-    */
-
 }

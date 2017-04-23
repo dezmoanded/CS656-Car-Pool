@@ -23,6 +23,7 @@
 		DAB45CC21E75D87C00DEA1E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB45CC11E75D87C00DEA1E6 /* Assets.xcassets */; };
 		DAB45CC51E75D87C00DEA1E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB45CC31E75D87C00DEA1E6 /* LaunchScreen.storyboard */; };
 		DAB45CD11E75E27E00DEA1E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB45CD01E75E27E00DEA1E6 /* LoginViewController.swift */; };
+		DAED89BE1EAC598C00287E72 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAED89BD1EAC598C00287E72 /* DirectionsViewController.swift */; };
 		DAFF4FF01E8B5497005F5A63 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFF4FEF1E8B5497005F5A63 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		DAB45CC41E75D87C00DEA1E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DAB45CC61E75D87C00DEA1E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAB45CD01E75E27E00DEA1E6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DAED89BD1EAC598C00287E72 /* DirectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		DAFF4FEF1E8B5497005F5A63 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +115,7 @@
 				DAB45CD01E75E27E00DEA1E6 /* LoginViewController.swift */,
 				DA7DAEC91E760D660014F774 /* ProfileViewController.swift */,
 				DAB45CBE1E75D87C00DEA1E6 /* Main.storyboard */,
+				DAED89BD1EAC598C00287E72 /* DirectionsViewController.swift */,
 				DAB45CC11E75D87C00DEA1E6 /* Assets.xcassets */,
 				DAB45CC31E75D87C00DEA1E6 /* LaunchScreen.storyboard */,
 				DAB45CC61E75D87C00DEA1E6 /* Info.plist */,
@@ -258,6 +261,7 @@
 				DAB45CD11E75E27E00DEA1E6 /* LoginViewController.swift in Sources */,
 				DA47FA1C1EA73742006361FD /* TripViewController.swift in Sources */,
 				DA47FA101E9C939D006361FD /* TimePickerViewController.swift in Sources */,
+				DAED89BE1EAC598C00287E72 /* DirectionsViewController.swift in Sources */,
 				DA7DAECD1E764F9D0014F774 /* ScrollViewKeeper.swift in Sources */,
 				DAB45CB91E75D87C00DEA1E6 /* AppDelegate.swift in Sources */,
 				DA2D5A3F1E8781880056828F /* TabBarController.swift in Sources */,

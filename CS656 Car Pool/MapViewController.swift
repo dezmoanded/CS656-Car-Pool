@@ -259,7 +259,7 @@ class MapViewController: UIViewController {
         let ref = FIRDatabase.database().reference().child("users/\(driver)/trips/\(trip)/stops")
         ref.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
             var stops = snapshot.value as! [String]
-            for i in 0 ... stops.count {
+            for i in 0 ... stops.count - 1 {
                 if stops[i].contains(stop) {
                     stops.remove(at: i)
                 }
