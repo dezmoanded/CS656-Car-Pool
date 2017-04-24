@@ -42,7 +42,7 @@ class ListTableViewCell: UITableViewCell {
     
     func setPickupTime(trip: FIRDataSnapshot) {
         if let driver = trip.childSnapshot(forPath: "driver").value as? String ?? ProfileViewController.ref?.key {
-            FIRDatabase.database().reference().child("users/\(driver)").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+            FIRDatabase.database().reference().child("users/\(driver)").observe(FIRDataEventType.value, with: { (snapshot) in
                 if let stops = snapshot.childSnapshot(forPath: "/trips/\(self.name)/stops").value as? [String] {
                     for i in 0 ... stops.count - 1 {
                         if stops[i] == ProfileViewController.ref.key + "/pickup" {
@@ -55,9 +55,10 @@ class ListTableViewCell: UITableViewCell {
                                         .childSnapshot(forPath: "/trips/\(self.name)/earliestDropoffTime")
                                         .value as? String {
                                         if let userPickupTime = self.dateFormatter.date(from: driverDropoffTime)?
-                                            .addingTimeInterval(-(Double)(time)){
+                                            .addingTimeInterval(-(Double)(time)),
+                                            let isDriver = snapshot.childSnapshot(forPath: "currentTrip/canDrive").value as? Bool{
                                             self.label.text = String.init(format: self.labelFormat,
-                                                                          "Pickup at \(self.dateFormatter.string(from: userPickupTime))")
+                                                                          "\(isDriver ? "Leave" : "Pickup") at \(self.dateFormatter.string(from: userPickupTime))")
                                         }
                                     }
                                 })

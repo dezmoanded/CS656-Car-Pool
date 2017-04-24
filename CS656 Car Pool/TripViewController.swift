@@ -31,7 +31,7 @@ class TripTableViewController: UITableViewController {
     }
     
     func loadPassengers() {
-        passengersText = []
+        var newPassengersText : [String] = []
         if passengers.count > 0 {
             for i in 0 ... passengers.count - 1 {
                 FIRDatabase.database().reference().child("users/\(passengers[i])/profile").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
@@ -40,8 +40,10 @@ class TripTableViewController: UITableViewController {
                         let phone = snapshot.childSnapshot(forPath: "phoneNumber").value as? String {
                         
                         let passText = firstName + " " + lastName + " - " + phone
-                        self.passengersText.append(passText)
-                        if let newHTML = self.tvc?.directionsHTML.replacingOccurrences(of: self.passengers[i], with: passText) {
+                        newPassengersText.append(passText)
+                        self.passengersText = newPassengersText
+                        if let newHTML = self.tvc?.directionsHTML.replacingOccurrences(of: self.passengers[i],
+                                                                                       with: passText) {
                             self.tvc?.directionsHTML = newHTML
                         }
                         DispatchQueue.main.async {
@@ -52,7 +54,7 @@ class TripTableViewController: UITableViewController {
             }
         }
         
-        FIRDatabase.database().reference().child("users/\(driver)/profile").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+        FIRDatabase.database().reference().child("users/\(driver)/profile").observe(FIRDataEventType.value, with: { (snapshot) in
             if let firstName = snapshot.childSnapshot(forPath: "firstName").value as? String,
                 let lastName = snapshot.childSnapshot(forPath: "lastName").value as? String,
                 let phone = snapshot.childSnapshot(forPath: "phoneNumber").value as? String {
@@ -67,7 +69,11 @@ class TripTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "passengerCell")!
-        cell.textLabel?.text = indexPath.section == 0 ? driverText : passengersText[indexPath.row]
+        if indexPath.section == 0 {
+            cell.textLabel?.text = driverText
+        } else if indexPath.row < passengersText.count {
+            cell.textLabel?.text = passengersText[indexPath.row]
+        }
         return cell
     }
     
@@ -188,7 +194,7 @@ class TripViewController: UIViewController, GMSMapViewDelegate {
         let requestURL = URL(string: url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL!)
         let session = URLSession.shared
-        directionsHTML = ""
+        var newHTML = ""
         let task = session.dataTask(with: urlRequest as URLRequest) {
             (data, response, error) -> Void in
             //let httpResponse = response as! HTTPURLResponse
@@ -223,14 +229,15 @@ class TripViewController: UIViewController, GMSMapViewDelegate {
                                 }
                                 
                                 if let html = step["html_instructions"] as? String {
-                                    self.directionsHTML += html + "<br>"
+                                    newHTML += html + "<br>"
                                 }
                             }
                             
                             if i < self.ttvc.passengers.count,
                                 let address = leg["end_address"] as? String {
-                                self.directionsHTML += "<br><b>Pickup \(self.ttvc.passengers[i])</b> at \(address)<br><br>"
+                                newHTML += "<br><b>Pickup \(self.ttvc.passengers[i])</b> at \(address)<br><br>"
                             }
+                            self.directionsHTML = newHTML
                             i += 1
                         }
                     }

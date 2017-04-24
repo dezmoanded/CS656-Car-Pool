@@ -103,28 +103,54 @@ class MapViewController: UIViewController {
             self.addToDmList()
         })
         
-        var canDriveHandle : UInt = 0
+        //var canDriveHandle : UInt = 0
         let distanceMatrixUpdatedByRef = FIRDatabase.database().reference().child("distanceMatrixUpdatedBy")
         MapViewController.ref.child("canDrive").observe(FIRDataEventType.value, with: { (snapshot) in
             if let canDrive = snapshot.value as? Bool {
                 if canDrive {
-                    canDriveHandle = distanceMatrixUpdatedByRef.observe(FIRDataEventType.value, with: { (lastUpdateSnapshot) in
+                    distanceMatrixUpdatedByRef.observeSingleEvent(of: FIRDataEventType.value, with: { (lastUpdateSnapshot) in
                         ProfileViewController.ref.observeSingleEvent(of: FIRDataEventType.value, with: { (driverSnapshot) in
                             var lastUpdateTime = 0
                             if let lut = driverSnapshot.childSnapshot(forPath: "lastProcessedUpdate").value as? Int {
                                 lastUpdateTime = lut
                             }
                             FIRDatabase.database().reference().child("distanceMatrix").observeSingleEvent(of: FIRDataEventType.value, with: { (matrixSnapshot) in
-                                FIRDatabase.database().reference().child("usersForMatrix").observeSingleEvent(of: FIRDataEventType.value, with: { (matrixUsersSnapshot) in
-                                    for dmUpdate in lastUpdateSnapshot.children.allObjects as! [FIRDataSnapshot] {
-                                        if Int(dmUpdate.key)! > lastUpdateTime {
-                                            self.processTrips(driver: driverSnapshot,
-                                                              user: dmUpdate.value as! String,
-                                                              matrix: matrixSnapshot,
-                                                              matrixUsers: matrixUsersSnapshot)
-                                        }
+                                FIRDatabase.database().reference().child("usersForMatrix")
+                                    .queryOrderedByKey()
+                                    .observeSingleEvent(of: FIRDataEventType.value, with: { (matrixUsersSnapshot) in
+                                    
+                                    for driverTrip in driverSnapshot.childSnapshot(forPath: "trips")
+                                        .children.allObjects as! [FIRDataSnapshot] {
+                                        
+                                        FIRDatabase.database().reference().child("users")
+                                            .observeSingleEvent(of: FIRDataEventType.value, with: { (usersSnapshot) in
+                                                
+                                            var stops = driverTrip.childSnapshot(forPath: "stops").value as? [String]
+                                                ?? [driverSnapshot.key + "/pickup", driverSnapshot.key + "/dropoff"]
+                                                
+                                            for user in usersSnapshot.children.allObjects as! [FIRDataSnapshot] {
+                                                for dmUpdate in lastUpdateSnapshot.children.allObjects as! [FIRDataSnapshot] {
+                                                    if Int(dmUpdate.key)! > lastUpdateTime,
+                                                        let userKey = dmUpdate.value as? String,
+                                                        user.key == userKey,
+                                                        userKey != driverSnapshot.key {
+                                                        stops = self.processTrip(driver: driverSnapshot,
+                                                                                 driverTrip: driverTrip,
+                                                                                 userSnapshot: user,
+                                                                                 matrix: matrixSnapshot,
+                                                                                 matrixUsers: matrixUsersSnapshot,
+                                                                                 stops: stops)
+                                                    }
+                                                }
+                                            }
+                                            
+                                            FIRDatabase.database().reference()
+                                                .child("users/\(driverSnapshot.key)/trips/\(driverTrip.key)/stops")
+                                                .setValue(stops)
+                                        })
                                     }
-                                    if let newUpdateTime = lastUpdateSnapshot.children.allObjects.first as? FIRDataSnapshot {
+                                    
+                                    if let newUpdateTime = lastUpdateSnapshot.children.allObjects.last as? FIRDataSnapshot {
                                         ProfileViewController.ref.child("lastProcessedUpdate").setValue(newUpdateTime.key)
                                     }
                                 })
@@ -132,7 +158,7 @@ class MapViewController: UIViewController {
                         })
                     })
                 } else {
-                    distanceMatrixUpdatedByRef.removeObserver(withHandle: canDriveHandle)
+                    //distanceMatrixUpdatedByRef.removeObserver(withHandle: canDriveHandle)
                 }
             }
         })
@@ -159,91 +185,109 @@ class MapViewController: UIViewController {
         })
     }
     
-    func processTrips(driver: FIRDataSnapshot, user: String, matrix: FIRDataSnapshot, matrixUsers: FIRDataSnapshot){
-        FIRDatabase.database().reference().child("users/\(user)").observeSingleEvent(of: FIRDataEventType.value, with: { (userSnapshot) in
-            for driverTrip in driver.childSnapshot(forPath: "trips").children.allObjects as! [FIRDataSnapshot] {
-                if let doDriverTrip = driverTrip.childSnapshot(forPath: "on").value as? Bool,
-                    doDriverTrip,
-                    let userTrip = userSnapshot.childSnapshot(forPath: "trips/\(driverTrip.key)") as? FIRDataSnapshot,
-                    let doTrip = userTrip.childSnapshot(forPath: "on").value as? Bool,
-                    doTrip,
-                    self.timesMakeSense(driverTrip: driverTrip, userTrip: userTrip) {
+    func processTrip(driver: FIRDataSnapshot,
+                     driverTrip: FIRDataSnapshot,
+                     userSnapshot: FIRDataSnapshot,
+                     matrix: FIRDataSnapshot,
+                     matrixUsers: FIRDataSnapshot,
+                     stops: [String]) -> [String]{
+        if let userIsDriver = userSnapshot.childSnapshot(forPath: "currentTrip/canDrive").value as? Bool,
+            userIsDriver {
+            return stops
+        }
+        
+        var newStops = stops
+        
+        if let doDriverTrip = driverTrip.childSnapshot(forPath: "on").value as? Bool,
+            doDriverTrip,
+            let userTrip = userSnapshot.childSnapshot(forPath: "trips/\(driverTrip.key)") as? FIRDataSnapshot,
+            let doTrip = userTrip.childSnapshot(forPath: "on").value as? Bool,
+            doTrip,
+            userTrip.childSnapshot(forPath: "driver").value as? String != driver.key,
+            self.timesMakeSense(driverTrip: driverTrip, userTrip: userTrip),
+            let earliestDropoff = driverTrip.childSnapshot(forPath: "earliestDropoffTime")
+                .value as? String
+                ?? driverTrip.childSnapshot(forPath: "dropoffTime").value as? String,
+            let earliestDropoffTime = self.dateFormatter.date(from: earliestDropoff),
+            let userDropoff = userTrip.childSnapshot(forPath: "dropoffTime").value as? String,
+            let userDropoffTime = self.dateFormatter.date(from: userDropoff){
+            
+            if driverTrip.childSnapshot(forPath: "deleted/" + userSnapshot.key).value as? Bool ?? false {
+                return newStops
+            }
+            
+            var bestTime = userTrip.childSnapshot(forPath: "bestTime").value as? Int ?? Int.max
+            
+            let originalTripTime = MapViewController.totalTripTime(stops: stops,
+                                                                   matrix: matrix,
+                                                                   matrixUsers: matrixUsers)
+            
+            for i in 1 ... stops.count - 1 {
+                for j in i ... stops.count - 1 {
+                    var tempStops = stops
+                    tempStops.insert("\(userSnapshot.key)/pickup", at: i)
+                    tempStops.insert("\(userSnapshot.key)/dropoff", at: j + 1)
+                    var tripTime = MapViewController.totalTripTime(stops: tempStops,
+                                                                   matrix: matrix,
+                                                                   matrixUsers: matrixUsers)
                     
-                    if driverTrip.childSnapshot(forPath: "deleted/" + user).value as? Bool ?? false {
-                        continue
+                    
+                    
+                    if userDropoffTime <= earliestDropoffTime {
+                        tripTime += Int(earliestDropoffTime.timeIntervalSince(userDropoffTime))
                     }
                     
-                    var stops = driverTrip.childSnapshot(forPath: "stops").value as? [String]
-                    
-                    if stops == nil {
-                        stops = [driver.key + "/pickup", driver.key + "/dropoff"]
-                    }
-                    
-                    var bestTime = Int.max
-                    if userTrip.hasChild("bestTime") {
-                        bestTime = userTrip.childSnapshot(forPath: "bestTime").value as! Int
-                    }
-                    
-                    for i in 1 ... stops!.count - 1 {
-                        for j in i ... stops!.count - 1 {
-                            var tempStops = stops!
-                            tempStops.insert("\(user)/pickup", at: i)
-                            tempStops.insert("\(user)/dropoff", at: j + 1)
-                            var tripTime = MapViewController.totalTripTime(stops: tempStops,
-                                                                           matrix: matrix,
-                                                                           matrixUsers: matrixUsers)
-                            
-                            if let earliestDropoff = driverTrip.childSnapshot(forPath: "earliestDropoffTime")
-                                .value as? String
-                                ?? driverTrip.childSnapshot(forPath: "dropoffTime").value as? String,
-                                let earliestDropoffTime = self.dateFormatter.date(from: earliestDropoff),
-                                let userDropoff = userTrip.childSnapshot(forPath: "dropoffTime").value as? String,
-                                let userDropoffTime = self.dateFormatter.date(from: userDropoff){
-                                
-                                if userDropoffTime < earliestDropoffTime {
-                                    tripTime += Int(earliestDropoffTime.timeIntervalSince(userDropoffTime))
-                                    ProfileViewController.ref.child("trips/\(driverTrip.key)/earliestDropoffTime")
-                                        .setValue(self.dateFormatter.string(from: userDropoffTime))
-                                }
-                            }
-                            
-                            if tripTime < bestTime{
-                                if let oldDriver = userTrip.childSnapshot(forPath: "driver").value as? String,
-                                    oldDriver != driver.key {
-                                    self.removeStopFromOldDriversTrip(driver: oldDriver,
-                                                                      trip: driverTrip.key,
-                                                                      stop: user)
-                                }
-                                
-                                self.addToTrip(user: user, driver: driver.key, trip: driverTrip.key, stops: tempStops)
-                                FIRDatabase.database().reference()
-                                    .child("users/\(user)/trips/\(driverTrip.key)/bestTime")
-                                    .setValue(tripTime)
-                            }
+                    let diff = tripTime - originalTripTime
+                    if diff < bestTime {
+                        bestTime = diff
+                        
+                        if  let oldDriver = userTrip.childSnapshot(forPath: "driver").value as? String {
+                            self.removeStopFromOldDriversTrip(driver: oldDriver,
+                                                              trip: driverTrip.key,
+                                                              stop: userSnapshot.key)
+                        }
+                        
+                        self.addToTrip(user: userSnapshot.key, driver: driver.key, trip: driverTrip.key, stops: tempStops)
+                        
+                        newStops = tempStops
+                        
+                        FIRDatabase.database().reference()
+                            .child("users/\(userSnapshot.key)/trips/\(driverTrip.key)/bestTime")
+                            .setValue(diff)
+                        
+                        if userDropoffTime <= earliestDropoffTime {
+                            ProfileViewController.ref.child("trips/\(driverTrip.key)/earliestDropoffTime")
+                                .setValue(self.dateFormatter.string(from: userDropoffTime))
                         }
                     }
                 }
             }
-        })
+        }
+        
+        return newStops
     }
     
     static func totalTripTime(stops: [String], matrix: FIRDataSnapshot, matrixUsers: FIRDataSnapshot) -> Int{
         var totalTime = 0
         for i in 0 ... stops.count - 2 {
-            let origin = matrixUsers.childSnapshot(forPath: stops[i]).value as! NSNumber
-            let destination = matrixUsers.childSnapshot(forPath: stops[i + 1]).value as! NSNumber
-            totalTime += matrix.childSnapshot(forPath: "rows/\(origin)/elements/\(destination)/duration/value").value as! Int
+            if let origin = matrixUsers.childSnapshot(forPath: stops[i]).value as? NSNumber,
+                let destination = matrixUsers.childSnapshot(forPath: stops[i + 1]).value as? NSNumber,
+                let addToTime = matrix
+                    .childSnapshot(forPath: "rows/\(origin)/elements/\(destination)/duration/value").value as? Int {
+                totalTime += addToTime
+            }
         }
         return totalTime
     }
     
     func timesMakeSense(driverTrip: FIRDataSnapshot, userTrip: FIRDataSnapshot) -> Bool {
+        return true
         if let driverTimeString = driverTrip.childSnapshot(forPath: "dropoffTime").value as? String,
             let userTimeString = userTrip.childSnapshot(forPath: "dropoffTime").value as? String {
             
             let driverTime = dateFormatter.date(from: driverTimeString)
             let userTime = dateFormatter.date(from: userTimeString)
-            return userTime! < driverTime!
+            return userTime! >= driverTime!
         } else {
             return false
         }
@@ -252,19 +296,15 @@ class MapViewController: UIViewController {
     func addToTrip(user: String, driver: String, trip: String, stops: [String]){
         let users = FIRDatabase.database().reference().child("users")
         users.child("\(user)/trips/\(trip)/driver").setValue(driver)
-        users.child("\(driver)/trips/\(trip)/stops").setValue(stops)
+        //users.child("\(driver)/trips/\(trip)/stops").setValue(stops)
     }
     
     func removeStopFromOldDriversTrip(driver: String, trip: String, stop: String){
         let ref = FIRDatabase.database().reference().child("users/\(driver)/trips/\(trip)/stops")
         ref.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
-            var stops = snapshot.value as! [String]
-            for i in 0 ... stops.count - 1 {
-                if stops[i].contains(stop) {
-                    stops.remove(at: i)
-                }
+            if let stops = snapshot.value as? [String] {
+                ref.setValue(stops.filter{ !$0.contains(stop) })
             }
-            ref.setValue(stops)
         })
     }
     

@@ -47,7 +47,7 @@
                                                                         <rect key="frame" x="0.0" y="29" width="357" height="30"/>
                                                                         <nil key="textColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                                                     </textField>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,7 +125,7 @@
                                                                         <rect key="frame" x="0.0" y="28.5" width="357" height="30.5"/>
                                                                         <nil key="textColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                                                         <connections>
                                                                             <action selector="didEditTextField:" destination="9pv-A4-QxB" eventType="editingDidEnd" id="tMx-4f-ide"/>
                                                                         </connections>
@@ -154,7 +154,7 @@
                                                                         <rect key="frame" x="0.0" y="28.5" width="357" height="30.5"/>
                                                                         <nil key="textColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                                                         <connections>
                                                                             <action selector="didEditTextField:" destination="9pv-A4-QxB" eventType="editingDidEnd" id="5VO-E6-97G"/>
                                                                         </connections>
@@ -942,7 +942,7 @@
             <objects>
                 <navigationController id="Ks7-ey-jxe" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mtq-pW-ghW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mtq-pW-ghW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1112,7 +1112,7 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1AQ-fp-FPW"/>
+        <segue reference="FhM-jy-zeN"/>
         <segue reference="haS-Oy-V5h"/>
     </inferredMetricsTieBreakers>
 </document>
